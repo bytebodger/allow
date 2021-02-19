@@ -187,7 +187,7 @@ const Allow = () => {
    return methods;
 };
 
-const anEmptyFunction = () => {
+const anEmptyFunction = () => {/**/
 };
 
 const is = {
