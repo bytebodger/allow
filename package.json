@@ -1,0 +1,31 @@
+{
+  "name": "@toolz/allow",
+  "version": "0.0.1",
+  "description": "Provides validation of data types",
+  "keywords": [
+    "validation",
+    "data type",
+    "inputs",
+    "interfaces",
+    "javascript"
+  ],
+  "homepage": "https://github.com/bytebodger/allow",
+  "bugs": {
+    "email": "adam.davis@hashverify.com",
+    "url": "https://github.com/bytebodger/allow/issues"
+  },
+  "main": "src/allow.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bytebodger/allow.git"
+  },
+  "author": "Adam Nathaniel Davis <adam.davis@hashverify.com> (https://writing.voyage)",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  }
+}
