@@ -34,8 +34,8 @@ const doSomething = reallyDoIt => {
    /*
       This is NOT "truthy".  It fails if anything other than a true Boolean is 
       provided.  This means that it fails on 'TRUE'/'FALSE' (because they're 
-      strings), on 1/0 (because they're numbers), or any other value that is not 
-      a pure TRUE/FALSE
+      strings), on 1/0 (because they're numbers), or any other value that is 
+      not a pure TRUE/FALSE
     */
 }
 ```
