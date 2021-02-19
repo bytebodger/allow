@@ -1,61 +1,17 @@
 # allow
 
 `allow`
-is a library that checks data types and _allows_ the script to continue if they pass the check. If the check fails, the script can throw an `Error`or just a warning. The package was written to ensure that only the "right" kind of data is allowed into the body of a function / method / component / etc. The intention is to provide effective _runtime_validation of data before it reaches application logic.
+is a library that checks data types and _allows_ the script to continue if they pass the check. If the check fails, the script can throw an `Error`or just a warning. The package was written to ensure that only the "right" kind of data is allowed into the body of a function / method / component / etc. The intention is to provide effective _runtime_ validation of data before it reaches application logic.
 
 ## Usage
 
-After
-installation,
-import
-the
-package
-as
-such:
+After installation, import the package as such:
 
 ```javascript
 import { allow } from '@toolz/allow';
 ```
 
-Once
-imported,
-the
-assumed
-usage
-is
-directly
-after
-the
-entry
-to
-any
-function
-/
-method
-/
-component
-/
-etc.
-The
-idea
-is
-to
-check
-the
-integrity
-of
-provided
-inputs
-before
-further
-computation
-proceeds.
-This
-would
-typically
-look
-like
-this:
+Once imported, the assumed usage is directly after the entry to any function / method / component / etc. The idea is to check the integrity of provided inputs before further computation proceeds. This would typically look like this:
 
 ```javascript
 const addSalesTax = (originalPrice) => {
@@ -66,95 +22,7 @@ const addSalesTax = (originalPrice) => {
 }
 ```
 
-In
-the
-above
-example,
-the
-assumption
-is
-that `originalPrice`
-should _
-always_
-be
-a
-number.
-If
-any
-other
-data
-type
-is
-provided
-for `originalPrice`
-,
-the `allow`
-check
-will
-fail.
-This
-means
-that
-a
-value
-of `'32.99'`
-will
-fail (
-because
-it's
-a
-string)
-.  `null`
-will
-fail.
-Boolean
-values
-will
-fail.
-Anything
-that
-is _
-not_
-a
-number
-will
-fail.
-
-In
-this
-example,
-the
-second
-argument (
-which
-is
-optional)
-,
-indicates
-the
-minimum
-acceptable
-value
-of
-the
-number.
-In
-this
-case,
-we
-don't
-want
-negative
-values
-for `originalPrice`
-,
-so
-nothing
-below `0`
-will
-pass
-the
-check.
+In the above example, the assumption is that `originalPrice`should _always_ be a number. If any other data type is provided for `originalPrice`, the `allow`check will fail. This means that a value of `'32.99'`will fail (because it's a string).  `null`will fail. Boolean values will fail. Anything that is _not_ a number will fail. In this example, the second argument (which is optional), indicates the minimum acceptable value of the number. In this case, we don't want negative values for `originalPrice`, so nothing below `0`will pass the check.
 
 ## Methods
 
