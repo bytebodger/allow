@@ -187,8 +187,7 @@ const Allow = () => {
    return methods;
 };
 
-const anEmptyFunction = () => {/**/
-};
+const anEmptyFunction = () => console.log('empty');
 
 const is = {
    not: {
