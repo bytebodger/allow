@@ -1,10 +1,7 @@
 # allow
 
 `allow`
-is
-a
-library
-that
+is a library that
 checks
 data
 types
