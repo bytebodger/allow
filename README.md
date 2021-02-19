@@ -69,7 +69,8 @@ const doSomething = theValues => {
    allow.anArray(theValues, 0);
    /*
        The second argument of anArray() is the minimum length of the array.  So, 
-       by setting this value to 0, it ensures that theValues is a non-empty array.
+       by setting this value to 0, it ensures that theValues is a non-empty 
+       array.
      */
 }
 ```
