@@ -1,5 +1,6 @@
 const Allow = () => {
    let failureBehavior = 'throw';
+   let onFailure = anEmptyFunction;
    
    const aBoolean = (value = false) => {
       if (typeof value !== 'boolean')
@@ -61,6 +62,10 @@ const Allow = () => {
       value.forEach(item => aString(item));
       checkLength(value, minLength, maxLength);
       return methods;
+   };
+   
+   const anEmptyFunction = () => {
+      //
    };
    
    const anInstanceOf = (suppliedObject = {}, modelObject = {}) => {
@@ -133,6 +138,7 @@ const Allow = () => {
    };
    
    const fail = (value, message = '') => {
+      onFailure(value, message);
       if (failureBehavior === 'ignore')
          return;
       if (failureBehavior === 'warn') {
@@ -143,6 +149,16 @@ const Allow = () => {
       console.error(value);
       throw new Error(`[${value.toString()}] ${message}`);
    };
+   
+   const is = {
+      not: {
+         empty: 1,
+         negative: 0,
+      },
+      positive: 1,
+   };
+   
+   const isAnObject = value => typeof value === 'object' && !Array.isArray(value) && value !== null;
    
    const oneOf = (value, allowedValues) => {
       if (typeof allowedValues !== 'object' || allowedValues === null) {
@@ -165,6 +181,11 @@ const Allow = () => {
       failureBehavior = behavior;
    };
    
+   const setOnFailure = (onFailureFunction = anEmptyFunction) => {
+      aFunction(onFailureFunction);
+      onFailure = onFailureFunction;
+   };
+   
    const methods = {
       aBoolean,
       aFunction,
@@ -181,22 +202,11 @@ const Allow = () => {
       aNumber,
       aString,
       oneOf,
+      setOnFailure,
       setFailureBehavior,
    };
    
    return methods;
 };
-
-const anEmptyFunction = () => console.log('empty');
-
-const is = {
-   not: {
-      empty: 1,
-      negative: 0,
-   },
-   positive: 1,
-};
-
-const isAnObject = value => typeof value === 'object' && !Array.isArray(value) && value !== null;
 
 export const allow = Allow();
