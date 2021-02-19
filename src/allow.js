@@ -150,6 +150,10 @@ const Allow = () => {
       throw new Error(`[${value.toString()}] ${message}`);
    };
    
+   const getFailureBehavior = () => failureBehavior;
+   
+   const getOnFailure = () => onFailure;
+   
    const is = {
       not: {
          empty: 1,
@@ -201,6 +205,8 @@ const Allow = () => {
       anObject,
       aNumber,
       aString,
+      getFailureBehavior,
+      getOnFailure,
       oneOf,
       setOnFailure,
       setFailureBehavior,

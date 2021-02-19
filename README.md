@@ -36,7 +36,6 @@ const doSomething = reallyDoIt => {
       provided.  This means that it fails on 'TRUE'/'FALSE' (because they're 
       strings), on 1/0 (because they're numbers), or any other value that is not 
       a pure TRUE/FALSE
-      ...proceed with the rest of the function
     */
 }
 ```
@@ -48,7 +47,6 @@ const doSomething = callback => {
    allow.aFunction(callback);
    /*
       This will fail unless a function is provided as the value for callback
-      ...proceed with the rest of the function
     */
 }
 ```
@@ -62,7 +60,6 @@ const doSomething = theValues => {
        This will fail unless an array is provided as the value for theValues.  
        In this example, theValues can be an empty array - but it must still be 
        an array.
-       ...proceed with the rest of the function
      */
 }
 ```
@@ -73,7 +70,6 @@ const doSomething = theValues => {
    /*
        The second argument of anArray() is the minimum length of the array.  So, 
        by setting this value to 0, it ensures that theValues is a non-empty array.
-       ...proceed with the rest of the function
      */
 }
 ```
@@ -84,7 +80,42 @@ const doSomething = theValues => {
    /*
        This ensures that theValues is an array, that is has no fewer than 2 
        elements, and no more than 50 elements.
-       ...proceed with the rest of the function
+     */
+}
+```
+
+### anArrayOfArrays
+
+```javascript
+const doSomething = nestedArray => {
+   allow.anArrayOfArrays(nestedArray);
+   /*
+       This will fail unless an array is provided as the value for nestedArray.  
+       It will also fail if any of elements inside nestedArray are not also 
+       arrays.  If you need something that will ensure that the array, INSIDE the 
+       array, also contains more arrays, you need to get a life and publish your 
+       own damn NPM package.
+     */
+}
+```
+
+```javascript
+const doSomething = nestedArray => {
+   allow.anArrayOfArrays(nestedArray, 0);
+   /*
+       The second argument of anArrayOfArrays() is the minimum length of the array.  
+       So, by setting this value to 0, it ensures that nestedArray is a non-empty 
+       array-of-arrays.
+     */
+}
+```
+
+```javascript
+const doSomething = nestedArray => {
+   allow.anArray(nestedArray, 2, 50);
+   /*
+       This ensures that nestedArray is an array, that all of its elements are 
+       arrays, that is has no fewer than 2 elements, and no more than 50 elements .
      */
 }
 ```
