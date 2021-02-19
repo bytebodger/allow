@@ -1,76 +1,7 @@
 # allow
 
 `allow`
-is a library that
-checks
-data
-types
-and _
-allows_
-the
-script
-to
-continue
-if
-they
-pass
-the
-check.
-If
-the
-check
-fails,
-the
-script
-can
-throw
-an `Error`
-or
-just
-a
-warning.
-The
-package
-was
-written
-to
-ensure
-that
-only
-the "
-right"
-kind
-of
-data
-is
-allowed
-into
-the
-body
-of
-a
-function
-/
-method
-/
-component
-/
-etc.
-The
-intention
-is
-to
-provide
-effective _
-runtime_
-validation
-of
-data
-before
-it
-reaches
-application
-logic.
+is a library that checks data types and _allows_ the script to continue if they pass the check. If the check fails, the script can throw an `Error`or just a warning. The package was written to ensure that only the "right" kind of data is allowed into the body of a function / method / component / etc. The intention is to provide effective _runtime_validation of data before it reaches application logic.
 
 ## Usage
 
