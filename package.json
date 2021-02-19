@@ -1,6 +1,6 @@
 {
   "name": "@toolz/allow",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Provides validation of data types",
   "keywords": [
     "validation",
@@ -16,6 +16,8 @@
   },
   "main": "src/allow.js",
   "scripts": {
+    "local": "nodemon --experimental-modules --es-module-specifier-resolution=node src/allow.js",
+    "start": "node --experimental-modules --es-module-specifier-resolution=node src/allow.js",
     "test": "mocha"
   },
   "repository": {
@@ -28,5 +30,11 @@
   "publishConfig": {
     "access": "public"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/node": "^7.10.5",
+    "@babel/preset-env": "^7.11.0",
+    "nodemon": "^2.0.4"
+  }
 }
