@@ -58,8 +58,8 @@ const doSomething = theValues => {
    allow.anArray(theValues);
    /*
        This will fail unless an array is provided as the value for theValues.  
-       In this example, theValues can be an empty array - but it must still be 
-       an array.
+       In this example, theValues can be an empty array - but it must still 
+       be an array.
      */
 }
 ```
@@ -68,9 +68,9 @@ const doSomething = theValues => {
 const doSomething = theValues => {
    allow.anArray(theValues, 0);
    /*
-       The second argument of anArray() is the minimum length of the array.  So, 
-       by setting this value to 0, it ensures that theValues is a non-empty 
-       array.
+       The second argument of anArray() is the minimum length of the array. 
+       So, by setting this value to 0, it ensures that theValues is a 
+       non-empty array.
      */
 }
 ```
@@ -91,11 +91,11 @@ const doSomething = theValues => {
 const doSomething = nestedArray => {
    allow.anArrayOfArrays(nestedArray);
    /*
-       This will fail unless an array is provided as the value for nestedArray.  
-       It will also fail if any of elements inside nestedArray are not also 
-       arrays.  If you need something that will ensure that the array, INSIDE the 
-       array, also contains more arrays, you need to get a life and publish your 
-       own damn NPM package.
+       This will fail unless an array is provided as the value for 
+       nestedArray. It will also fail if any of elements inside nestedArray 
+       are not also arrays.  If you need something that will ensure that the 
+       array, INSIDE the array, also contains more arrays, you need to get a 
+       life and publish your own damn NPM package.
      */
 }
 ```
@@ -104,9 +104,9 @@ const doSomething = nestedArray => {
 const doSomething = nestedArray => {
    allow.anArrayOfArrays(nestedArray, 0);
    /*
-       The second argument of anArrayOfArrays() is the minimum length of the array.  
-       So, by setting this value to 0, it ensures that nestedArray is a non-empty 
-       array-of-arrays.
+       The second argument of anArrayOfArrays() is the minimum length of the 
+       array. So, by setting this value to 0, it ensures that nestedArray is 
+       a non-empty array-of-arrays.
      */
 }
 ```
@@ -115,8 +115,9 @@ const doSomething = nestedArray => {
 const doSomething = nestedArray => {
    allow.anArray(nestedArray, 2, 50);
    /*
-       This ensures that nestedArray is an array, that all of its elements are 
-       arrays, that is has no fewer than 2 elements, and no more than 50 elements .
+       This ensures that nestedArray is an array, that all of its elements 
+       are arrays, that is has no fewer than 2 elements, and no more than 50 
+       elements .
      */
 }
 ```

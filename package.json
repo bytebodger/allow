@@ -1,6 +1,6 @@
 {
   "name": "@toolz/allow",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Provides validation of data types",
   "keywords": [
     "validation",
