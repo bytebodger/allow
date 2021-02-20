@@ -566,7 +566,7 @@ allow.setFailureBehavior('warn');
 ### .setOnFailure()
 
 ```javascript
-const myCustomErrorHandler = () => {
+const myCustomErrorHandler = (value, message) => {
    // do the custom error handling...
 }
 
@@ -577,6 +577,10 @@ allow.setOnFailure(myCustomErrorHandler);
    any Error is thrown.  Setting an onFailure callback does not halt the
    further error handling provide by allow.  If you want to turn off
    those features, you must use setFailureBehavior().
+   
+   When the onFailure method is invoked, it will be called with two arguments:
+      The original value that failed validation
+      The message spawned by that failed validation
  */
 ```
 
