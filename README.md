@@ -33,7 +33,7 @@ const doSomething = someValue => {
    allow.aBoolean(someValue);
    /*
       This is NOT "truthy".  It fails if anything other than a Boolean is 
-      provided.  This means that it fails on 'TRUE'/'FALSE' (because they're 
+      provided. This means that it fails on 'TRUE'/'FALSE' (because they're 
       strings), on 1/0 (because they're numbers), or any other value that is 
       not a pure TRUE/FALSE
     */
@@ -47,10 +47,12 @@ const doSomething = theCallback => {
    allow.aFunction(theCallback);
    /*
       This will fail unless a function is provided as the value for 
-      theCallback. It doesn't care what's inside the function.  It can even be
+      theCallback. It doesn't care what's inside the function. It can even be
       blank, like:
       () => {}
       But it must be a function of some kind.
+      In JavaScript, a class will also show typeof 'function'.  However, this
+      check will fail if a class is passed into theCallback.
     */
 }
 ```
@@ -62,7 +64,7 @@ const doSomething = theArray => {
    allow.anArray(theArray);
    /*
        This will fail unless an array is provided as the value for theArray.  
-       The check doesn't examine the contents of the array.  It can be an 
+       The check doesn't examine the contents of the array. It can be an 
        empty array, like:
        [] 
        But it must be an array of some kind.
@@ -99,8 +101,8 @@ const doSomething = theArrays => {
    /*
        This will fail unless an array is provided as the value for 
        theArrays. It will also fail if any of elements inside theArrays 
-       are not also arrays.  It does not inspect the contents of the arrays 
-       inside theArrays.  They can be empty arrays, like:
+       are not also arrays. It does not inspect the contents of the arrays 
+       inside theArrays. They can be empty arrays, like:
        [[], [], []]
        But they must be arrays of some kind.
      */
@@ -124,7 +126,7 @@ const doSomething = theArrays => {
    /*
        This ensures that theArrays is an array, that all of its elements 
        are arrays, that it has no fewer than 2 elements, and no more than 50 
-       elements .
+       elements.
      */
 }
 ```
@@ -146,7 +148,7 @@ const doSomething = thePeople => {
        are not objects, and if those objects do not have all the keys present
        in the model object (in this case: person). It does not inspect the 
        types of data held in those keys, and it will allow additional keys 
-       that do not exist in the model object.  But it expects every object 
+       that do not exist in the model object. But it expects every object 
        in the array to have all of the keys present in the model.
      */
 }
@@ -180,7 +182,7 @@ const doSomething = thePeople => {
    allow.anArrayOfInstances(thePeople, person, 2, 50);
    /*
        This ensures that thePeople is an array of "person" instances, that it
-       has no fewer than 2 elements, and no more than 50 elements .
+       has no fewer than 2 elements, and no more than 50 elements.
      */
 }
 ```
@@ -193,10 +195,10 @@ const doSomething = theNumbers => {
    /*
        This will fail unless an array is provided as the value for 
        theNumbers. It will also fail if any of elements inside theNumbers 
-       are not also integers.  This means that it will fail on any non-numeric
+       are not also integers. This means that it will fail on any non-numeric
        value, and it will also fail on any number that is not a "whole" 
-       number.  It will accept decimal values, as long as those decimals 
-       evaluate to a whole number.  So this works:
+       number. It will accept decimal values, as long as those decimals 
+       evaluate to a whole number. So this works:
        [1.0, 3.00, 42.0]
        But this does not:
        [1.0, 3.14, 42.0]
@@ -220,7 +222,7 @@ const doSomething = theNumbers => {
    allow.anArrayOfIntegers(theNumbers, 2, 50);
    /*
        This ensures that theNumbers is an array of integers, that it has no 
-       fewer than 2 elements, and no more than 50 elements .
+       fewer than 2 elements, and no more than 50 elements.
      */
 }
 ```
@@ -254,7 +256,7 @@ const doSomething = theNumbers => {
    allow.anArrayOfNumbers(theNumbers, 2, 50);
    /*
        This ensures that theNumbers is an array of integers, that it has no 
-       fewer than 2 elements, and no more than 50 elements .
+       fewer than 2 elements, and no more than 50 elements.
      */
 }
 ```
@@ -267,8 +269,8 @@ const doSomething = theObjects => {
    /*
        This will fail unless an array is provided as the value for 
        theObjects. It will also fail if any of the elements inside theObjects 
-       are not also objects.  It does not inspect the contents of the objects 
-       inside theObjects.  They can be empty objects, like:
+       are not also objects. It does not inspect the contents of the objects 
+       inside theObjects. They can be empty objects, like:
        [{}, {}, {}]
        But they must be objects of some kind.
      */
@@ -292,7 +294,7 @@ const doSomething = theObjects => {
    /*
        This ensures that theObjects is an array, that all of its elements 
        are objects, that it has no fewer than 2 elements, and no more than 50 
-       elements .
+       elements.
      */
 }
 ```
@@ -305,8 +307,8 @@ const doSomething = theStrings => {
    /*
        This will fail unless an array is provided as the value for 
        theStrings. It will also fail if any of the elements inside theStrings 
-       are not also strings.  It does not inspect the contents of the strings 
-       inside theStrings.  They can be empty strings, like:
+       are not also strings. It does not inspect the contents of the strings 
+       inside theStrings. They can be empty strings, like:
        ['', '', '']
        But they must be strings of some kind.
      */
@@ -330,7 +332,265 @@ const doSomething = theStrings => {
    /*
        This ensures that theStrings is an array, that all of its elements 
        are strings, that it has no fewer than 2 elements, and no more than 50 
-       elements .
+       elements.
      */
+}
+```
+
+### .anInstanceOf()
+
+```javascript
+const person = {
+   firstName: '',
+   lastName: '',
+   middleInitial: '',
+}
+
+const doSomething = thePerson => {
+   allow.anInstanceOf(thePerson, person);
+   /*
+       This is a (purposely forgiving) check to ensure that the provided object
+       is of a similar type to a reference object. This only checks that the
+       provided object has all of the same keys that are present in the
+       reference object.  It does not look at the types of data held in those
+       keys. It allows additional keys that don't exist in the reference
+       object. These objects will pass the check against the person reference:
+       
+       {
+          firstName: 'Bob',
+          lastName: 'Doe',
+          middleInitial: null, // this does not check to ensure that 
+                               // middleInitial is a string
+       }
+       
+       {
+          firstName: 'Bob',
+          lastName: 'Doe',
+          middleInitial: 'K',
+          favoriteIceCream: 'vanilla' // the check does not fail based upon any
+                                      // "extra" keys
+       }
+       
+       This object will fail the check against the person reference:
+       
+       {
+          firstName: 'Bob',
+          lastName: 'Doe',
+          // the middleInitial key is missing
+       }
+     */
+}
+```
+
+### .anInteger()
+
+```javascript
+const doSomething = theNumber => {
+   allow.anInteger(theNumber);
+   /*
+       This will fail unless an integer is provided as the value for
+       theNumber. It will fail on any non-numeric value.  It will also
+       fail on any numbers that are not "whole" numbers.  Values like
+       1.00 or 42.0 are fine.  But 3.14 will fail, because it is not
+       an integer.
+     */
+}
+```
+
+```javascript
+const doSomething = theNumber => {
+   allow.anInteger(theNumber, 0);
+   /*
+       The second argument of anInteger() is the minimum value of theNumber. 
+       So, by setting this value to 0, it ensures that theNumber is a 
+       positive integer.
+     */
+}
+```
+
+```javascript
+const doSomething = theNumber => {
+   allow.anInteger(theNumber, 2, 50);
+   /*
+       This ensures that theNumber is an integer, that the value is no less
+       than 2, and no greater than 50.
+     */
+}
+```
+
+### .anObject()
+
+```javascript
+const doSomething = theObject => {
+   allow.anObject(theObject);
+   /*
+       This ensures that theObject is an object. In JavaScript, an array is
+       seen as having typeof 'object', but an array will fail this check.
+       Similarly, NULL is seen as having typeof 'object', but it will also
+       fail this check. 
+     */
+}
+```
+
+```javascript
+const doSomething = theObject => {
+   allow.anObject(theObject, 0);
+   /*
+       The second argument of anObject() is the minimum number of keys that
+       must be present in theObject. So, by setting this value to 0, it ensure
+       that theObject is a non-empty object.
+     */
+}
+```
+
+```javascript
+const doSomething = theObject => {
+   allow.anObject(theObject, 2, 50);
+   /*
+       This ensures that theObject is an object, with no fewer than two keys,
+       and no more than 50 keys.
+     */
+}
+```
+
+### .aString()
+
+```javascript
+const doSomething = theString => {
+   allow.aString(theString);
+   /*
+       This will fail unless a string is provided as the value for theString.  
+       The check doesn't examine the contents of the string. It can be an 
+       empty string, like:
+       ''
+       But it must be a string of some kind.
+     */
+}
+```
+
+```javascript
+const doSomething = theString => {
+   allow.aString(theString, 0);
+   /*
+       The second argument of aString() is the minimum length of the string. 
+       So, by setting this value to 0, it ensures that theString is a 
+       non-empty string.
+     */
+}
+```
+
+```javascript
+const doSomething = theString => {
+   allow.aString(theString, 2, 50);
+   /*
+       This ensures that theString is a string, that has no fewer than 2 
+       characters, and no more than 50 characters.
+     */
+}
+```
+
+### .getFailureBehavior()
+
+```javascript
+console.log(allow.getFailureBehavior()); // 'throw'
+/*
+   The behavior has three possible values:
+      throw
+      warn
+      ignore
+   'throw' is the default value.
+ */
+```
+
+### .getOnFailure()
+
+```javascript
+allow.getOnFailure();
+/*
+   returns whatever function has been set to be called onFailure
+ */
+```
+
+### .oneOf()
+
+This can be called two different ways - by passing in a reference array or a reference object.
+
+```javascript
+const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
+
+const doSomething = theDay => {
+   allow.oneOf(theDay, days);
+   /*
+      This ensures that theDay matches one of the values in the days array.
+    */
+}
+```
+
+```javascript
+const days = {
+   0: 'Sun',
+   1: 'Mon',
+   2: 'Tue',
+   3: 'Wed',
+   4: 'Thur',
+   5: 'Fri',
+   6: 'Sat',
+}
+
+const doSomething = theDay => {
+   allow.oneOf(theDay, days);
+   /*
+      This ensures that theDay matches one of the values in the days object.
+      It does not try to check against any of the keys in the key/value pairs.
+      It only checks against the values.
+    */
+}
+```
+
+### .setFailureBehavior()
+
+```javascript
+allow.setFailureBehavior('warn');
+/*
+   setFailureBehavior() requires one of the following three values:
+      'throw'
+      'warn'
+      'ignore'
+   'throw' is the default value.  Throwing an Error will halt JavaScript
+   execution.  
+   'warn' will spawn warnings to be displayed in the console.
+   'ignore' will turn off all warnings and cease the throwing of all Errors.
+ */
+```
+
+### .setOnFailure()
+
+```javascript
+const myCustomErrorHandler = () => {
+   // do the custom error handling...
+}
+
+allow.setFailureBehavior('ignore');
+allow.setOnFailure(myCustomErrorHandler);
+/*
+   The onFailure handler is called before any warning is displayed and before
+   any Error is thrown.  Setting an onFailure callback does not halt the
+   further error handling provide by allow.  If you want to turn off
+   those features, you must use setFailureBehavior().
+ */
+```
+
+## Chaining
+
+A successful call to any of the `allow` validation methods always returns the full set of methods. This allows for the chaining of multiple checks on a single line of code. That could look something like this:
+
+```javascript
+const doSomething = (patient, isAlive, age) => {
+   allow.anObject(patient, 0).aBoolean(isAlive).aNumber(age, 0, 130);
+   /*
+      This ensures that patient is a non-empty object
+      AND that isAlive is a Boolean
+      AND that age is a positive number no greater than 130
+    */
 }
 ```

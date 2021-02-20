@@ -11,6 +11,9 @@ const Allow = () => {
    const aFunction = (value = anEmptyFunction) => {
       if (typeof value !== 'function')
          fail(value, 'is not a function');
+      const propertyNames = Object.getOwnPropertyNames(value);
+      if (!propertyNames.includes('prototype') || !propertyNames.includes('arguments'))
+         fail(value, 'is not a function');
       return methods;
    };
    
