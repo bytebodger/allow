@@ -586,7 +586,7 @@ allow.setOnFailure(myCustomErrorHandler);
 
 ## Chaining
 
-A successful call to any of the `allow` validation methods always returns the full set of methods. This allows for the chaining of multiple checks on a single line of code. That could look something like this:
+A successful call to any of the `allow` validation methods always returns `allow`. This enables the chaining of multiple checks on a single line of code. That would look something like this:
 
 ```javascript
 const doSomething = (patient, isAlive, age) => {
