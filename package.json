@@ -1,6 +1,6 @@
 {
   "name": "@toolz/allow",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Provides validation of data types",
   "keywords": [
     "runtime",

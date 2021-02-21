@@ -5,7 +5,7 @@ is a library that checks data types and _allows_ the script to continue if they 
 
 ## Usage
 
-After installation, import the package as such:
+After installation, import the package:
 
 ```javascript
 import { allow } from '@toolz/allow';
@@ -74,10 +74,10 @@ const doSomething = theArray => {
 
 ```javascript
 const doSomething = theArray => {
-   allow.anArray(theArray, 0);
+   allow.anArray(theArray, 1);
    /*
        The second argument of anArray() is the minimum length of the array. 
-       So, by setting this value to 0, it ensures that theArray is a 
+       So, by setting this value to 1, it ensures that theArray is a 
        non-empty array.
      */
 }
@@ -111,10 +111,10 @@ const doSomething = theArrays => {
 
 ```javascript
 const doSomething = theArrays => {
-   allow.anArrayOfArrays(theArrays, 0);
+   allow.anArrayOfArrays(theArrays, 1);
    /*
        The second argument of anArrayOfArrays() is the minimum length of the 
-       array. So, by setting this value to 0, it ensures that theArrays is 
+       array. So, by setting this value to 1, it ensures that theArrays is 
        a non-empty array-of-arrays.
      */
 }
@@ -162,10 +162,10 @@ const person = {
 }
 
 const doSomething = thePeople => {
-   allow.anArrayOfInstances(thePeople, person, 0);
+   allow.anArrayOfInstances(thePeople, person, 1);
    /*
        The third argument of anArrayOfInstances() is the minimum length of 
-       the array. So, by setting this value to 0, it ensures that thePeople is 
+       the array. So, by setting this value to 1, it ensures that thePeople is 
        a non-empty array of "person" instances.
      */
 }
@@ -208,10 +208,10 @@ const doSomething = theNumbers => {
 
 ```javascript
 const doSomething = theNumbers => {
-   allow.anArrayOfIntegers(theNumbers, 0);
+   allow.anArrayOfIntegers(theNumbers, 1);
    /*
        The second argument of anArrayOfIntegers() is the minimum length of 
-       the array. So, by setting this value to 0, it ensures that theNumbers
+       the array. So, by setting this value to 1, it ensures that theNumbers
        is a non-empty array of integers.
      */
 }
@@ -242,10 +242,10 @@ const doSomething = theNumbers => {
 
 ```javascript
 const doSomething = theNumbers => {
-   allow.anArrayOfNumbers(theNumbers, 0);
+   allow.anArrayOfNumbers(theNumbers, 1);
    /*
        The third argument of anArrayOfNumbers() is the minimum length of 
-       the array. So, by setting this value to 0, it ensures that theNumbers
+       the array. So, by setting this value to 1, it ensures that theNumbers
        is a non-empty array of integers.
      */
 }
@@ -279,10 +279,10 @@ const doSomething = theObjects => {
 
 ```javascript
 const doSomething = theObjects => {
-   allow.anArrayOfObjects(theObjects, 0);
+   allow.anArrayOfObjects(theObjects, 1);
    /*
        The second argument of anArrayOfObjects() is the minimum length of the 
-       array. So, by setting this value to 0, it ensures that theObjects is 
+       array. So, by setting this value to 1, it ensures that theObjects is 
        a non-empty array-of-objects.
      */
 }
@@ -317,10 +317,10 @@ const doSomething = theStrings => {
 
 ```javascript
 const doSomething = theStrings => {
-   allow.anArrayOfStrings(theStrings, 0);
+   allow.anArrayOfStrings(theStrings, 1);
    /*
        The second argument of anArrayOfStrings() is the minimum length of the 
-       array. So, by setting this value to 0, it ensures that theStrings is 
+       array. So, by setting this value to 1, it ensures that theStrings is 
        a non-empty array-of-strings.
      */
 }
@@ -382,6 +382,40 @@ const doSomething = thePerson => {
 }
 ```
 
+```javascript
+const person = {
+   firstName: '',
+   lastName: '',
+   middleInitial: '',
+   address: {},
+   children: [],
+}
+
+const doSomething = thePerson => {
+   allow.anInstanceOf(thePerson, person);
+   /*
+       Although anInstanceOf() does not check data types (string, number, 
+       etc.), it does check to ensure that keys containing objects or 
+       arrays in the model object also contain objects or arrays in the
+       supplied object. This object will fails the check against the person
+       reference:
+       
+       {
+         firstName: 'Bob',
+         lastName: 'Doe',
+         middleInitial: 'I',
+         address: '101 Main Street',
+         children: 4,
+       }
+       
+       This check is not recursive, meaning that anInstanceOf() only checks
+       to ensure that address is an object and children is an array.  It makes
+       no attempt to ensure that any objects/arrays below the first level of
+       keys exist in the supplied object.
+     */
+}
+```
+
 ### .anInteger()
 
 ```javascript
@@ -403,7 +437,7 @@ const doSomething = theNumber => {
    /*
        The second argument of anInteger() is the minimum value of theNumber. 
        So, by setting this value to 0, it ensures that theNumber is a 
-       positive integer.
+       non-negative integer.
      */
 }
 ```
@@ -434,10 +468,10 @@ const doSomething = theObject => {
 
 ```javascript
 const doSomething = theObject => {
-   allow.anObject(theObject, 0);
+   allow.anObject(theObject, 1);
    /*
        The second argument of anObject() is the minimum number of keys that
-       must be present in theObject. So, by setting this value to 0, it ensure
+       must be present in theObject. So, by setting this value to 1, it ensures
        that theObject is a non-empty object.
      */
 }
@@ -470,10 +504,10 @@ const doSomething = theString => {
 
 ```javascript
 const doSomething = theString => {
-   allow.aString(theString, 0);
+   allow.aString(theString, 1);
    /*
        The second argument of aString() is the minimum length of the string. 
-       So, by setting this value to 0, it ensures that theString is a 
+       So, by setting this value to 1, it ensures that theString is a 
        non-empty string.
      */
 }
@@ -487,6 +521,16 @@ const doSomething = theString => {
        characters, and no more than 50 characters.
      */
 }
+```
+
+### .getAllowNull()
+
+```javascript
+console.log(allow.getAllowNull()); // false
+/*
+   allowNull is Boolean. The default value is FALSE. When set to
+   TRUE, all of the checks will pass if the provided value is NULL. 
+ */
 ```
 
 ### .getFailureBehavior()
@@ -547,6 +591,20 @@ const doSomething = theDay => {
 }
 ```
 
+### .setAllowNull()
+
+```javascript
+const thisIsNull = null;
+allow.anArray(thisIsNull); // this throws an Error
+allow.setAllowNull(true);
+allow.anArray(thisIsNull); // this does NOT throw an Error
+/*
+   setAllowNull() requires a Boolean as its only argument. By default, the
+   values checked in by the allow methods are not nullable. But this behavior
+   can be toggled with setAllowNull(). 
+ */
+```
+
 ### .setFailureBehavior()
 
 ```javascript
@@ -590,11 +648,11 @@ A successful call to any of the `allow` validation methods always returns `allow
 
 ```javascript
 const doSomething = (patient, isAlive, age) => {
-   allow.anObject(patient, 0).aBoolean(isAlive).aNumber(age, 0, 130);
+   allow.anObject(patient, 1).aBoolean(isAlive).aNumber(age, 0, 130);
    /*
       This ensures that patient is a non-empty object
       AND that isAlive is a Boolean
-      AND that age is a positive number no greater than 130
+      AND that age is a non-negative number no greater than 130
     */
 }
 ```

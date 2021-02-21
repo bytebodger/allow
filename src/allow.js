@@ -1,4 +1,5 @@
 const Allow = () => {
+   let allowNull = false;
    let failureBehavior = 'throw';
    let onFailure = () => {
       //
@@ -6,28 +7,30 @@ const Allow = () => {
    
    const aBoolean = value => {
       if (typeof value !== 'boolean')
-         fail(value, 'is not a Boolean');
+         return fail(value, 'is not a Boolean');
       return allow;
    };
    
    const aFunction = value => {
       if (typeof value !== 'function')
-         fail(value, 'is not a function');
+         return fail(value, 'is not a function');
       if (!value.prototype.constructor.toString().includes('Function()'))
-         fail(value, 'is not a function');
+         return fail(value, 'is not a function');
       return allow;
    };
    
    const anArray = (value, minLength = 0, maxLength = Number.MAX_SAFE_INTEGER) => {
       anInteger(minLength, is.not.negative).anInteger(maxLength, is.not.negative);
       if (!Array.isArray(value))
-         fail(value, 'is not an array');
+         return fail(value, 'is not an array');
       checkLength(value, minLength, maxLength);
       return allow;
    };
    
    const anArrayOfArrays = (value, minLength = 0, maxLength = Number.MAX_SAFE_INTEGER) => {
       anArray(value).anInteger(minLength, is.not.negative).anInteger(maxLength, is.not.negative);
+      if (allowNull && value === null)
+         return allow;
       value.forEach(item => anArray(item));
       checkLength(value, minLength, maxLength);
       return allow;
@@ -35,6 +38,8 @@ const Allow = () => {
    
    const anArrayOfInstances = (value, modelObject, minLength = 0, maxLength = Number.MAX_SAFE_INTEGER) => {
       anArray(value).anObject(modelObject).anInteger(minLength, is.not.negative).anInteger(maxLength, is.not.negative);
+      if (allowNull && value === null)
+         return allow;
       value.forEach(item => anInstanceOf(item, modelObject));
       checkLength(value, minLength, maxLength);
       return allow;
@@ -42,6 +47,8 @@ const Allow = () => {
    
    const anArrayOfIntegers = (value, minLength = 0, maxLength = Number.MAX_SAFE_INTEGER) => {
       anArray(value).anInteger(minLength, is.not.negative).anInteger(maxLength, is.not.negative);
+      if (allowNull && value === null)
+         return allow;
       value.forEach(item => anInteger(item));
       checkLength(value, minLength, maxLength);
       return allow;
@@ -49,6 +56,8 @@ const Allow = () => {
    
    const anArrayOfNumbers = (value, minLength = 0, maxLength = Number.MAX_SAFE_INTEGER) => {
       anArray(value).anInteger(minLength, is.not.negative).anInteger(maxLength, is.not.negative);
+      if (allowNull && value === null)
+         return allow;
       value.forEach(item => aNumber(item));
       checkLength(value, minLength, maxLength);
       return allow;
@@ -56,6 +65,8 @@ const Allow = () => {
    
    const anArrayOfObjects = (value, minLength = 0, maxLength = Number.MAX_SAFE_INTEGER) => {
       anArray(value).anInteger(minLength, is.not.negative).anInteger(maxLength, is.not.negative);
+      if (allowNull && value === null)
+         return allow;
       value.forEach(item => anObject(item));
       checkLength(value, minLength, maxLength);
       return allow;
@@ -63,6 +74,8 @@ const Allow = () => {
    
    const anArrayOfStrings = (value, minLength = 0, maxLength = Number.MAX_SAFE_INTEGER) => {
       anArray(value).anInteger(minLength, is.not.negative).anInteger(maxLength, is.not.negative);
+      if (allowNull && value === null)
+         return allow;
       value.forEach(item => aString(item));
       checkLength(value, minLength, maxLength);
       return allow;
@@ -70,6 +83,8 @@ const Allow = () => {
    
    const anInstanceOf = (suppliedObject, modelObject) => {
       anObject(suppliedObject).anObject(modelObject);
+      if (allowNull && suppliedObject === null)
+         return allow;
       const modelKeys = Object.keys(modelObject);
       let aKeyIsMissing = false;
       modelKeys.forEach(modelKey => {
@@ -95,7 +110,7 @@ const Allow = () => {
    
    const anInteger = (value, minValue = Number.MIN_SAFE_INTEGER, maxValue = Number.MAX_SAFE_INTEGER) => {
       if (!Number.isInteger(value))
-         fail(value, 'is not an integer');
+         return fail(value, 'is not an integer');
       checkRange(value, minValue, maxValue);
       return allow;
    };
@@ -103,14 +118,14 @@ const Allow = () => {
    const anObject = (value, minNumberOfKeys = 0, maxNumberOfKeys = Number.MAX_SAFE_INTEGER) => {
       anInteger(minNumberOfKeys, is.not.negative).anInteger(maxNumberOfKeys, is.not.negative);
       if ((typeof value !== 'object' || Array.isArray(value) || value === null))
-         fail(value, 'is not an object');
+         return fail(value, 'is not an object');
       checkLength(Object.keys(value), minNumberOfKeys, maxNumberOfKeys);
       return allow;
    };
    
    const aNumber = (value, minValue = Number.MIN_SAFE_INTEGER, maxValue = Number.MAX_SAFE_INTEGER) => {
       if (typeof value !== 'number')
-         fail(value, 'is not a number');
+         return fail(value, 'is not a number');
       checkRange(value, minValue, maxValue);
       return allow;
    };
@@ -118,37 +133,42 @@ const Allow = () => {
    const aString = (value, minLength = 0, maxLength = Number.MAX_SAFE_INTEGER) => {
       anInteger(minLength, is.not.negative).anInteger(maxLength, is.not.negative);
       if (typeof value !== 'string')
-         fail(value, 'is not a string');
+         return fail(value, 'is not a string');
       checkLength(value, minLength, maxLength);
       return allow;
    };
    
    const checkLength = (value, minLength = 0, maxLength = Number.MAX_SAFE_INTEGER) => {
+      anInteger(minLength, 0).anInteger(maxLength, 0);
       if (value.length < minLength)
-         fail(value, 'is too short');
+         return fail(value, 'is too short');
       if (value.length > maxLength)
-         fail(value, 'is too long');
+         return fail(value, 'is too long');
    };
    
    const checkRange = (value = 0, minValue = Number.MIN_SAFE_INTEGER, maxValue = Number.MAX_SAFE_INTEGER) => {
       if (value < minValue)
-         fail(value, 'is too small');
+         return fail(value, 'is too small');
       if (value > maxValue)
-         fail(value, 'is too large');
+         return fail(value, 'is too large');
    };
    
    const fail = (value, message) => {
+      if (allowNull && value === null)
+         return allow;
       onFailure(value, message);
       if (failureBehavior === 'ignore')
-         return;
+         return allow;
       if (failureBehavior === 'warn') {
          console.warn(value);
          console.warn(`[${value.toString()}] ${message}`);
-         return;
+         return allow;
       }
       console.error(value);
       throw new Error(`[${value.toString()}] ${message}`);
    };
+   
+   const getAllowNull = () => allowNull;
    
    const getFailureBehavior = () => failureBehavior;
    
@@ -165,13 +185,18 @@ const Allow = () => {
       }
       if (Array.isArray(allowedValues)) {
          if (!allowedValues.some(allowedValue => value === allowedValue))
-            fail(value, 'is not an allowed value');
+            return fail(value, 'is not an allowed value');
          return allow;
       }
       const entries = Object.entries(allowedValues);
       if (!entries.some(entry => entry[1] === value))
-         fail(value, 'is not an allowed value');
+         return fail(value, 'is not an allowed value');
       return allow;
+   };
+   
+   const setAllowNull = newAllowNull => {
+      aBoolean(newAllowNull);
+      allowNull = newAllowNull;
    };
    
    const setFailureBehavior = behavior => {
@@ -199,9 +224,11 @@ const Allow = () => {
       anObject,
       aNumber,
       aString,
+      getAllowNull,
       getFailureBehavior,
       getOnFailure,
       oneOf,
+      setAllowNull,
       setOnFailure,
       setFailureBehavior,
    };
