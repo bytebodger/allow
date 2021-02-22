@@ -144,6 +144,7 @@ const Allow = () => {
          return fail(value, 'is too short');
       if (value.length > maxLength)
          return fail(value, 'is too long');
+      return true;
    };
    
    const checkRange = (value = 0, minValue = Number.MIN_SAFE_INTEGER, maxValue = Number.MAX_SAFE_INTEGER) => {
@@ -151,6 +152,7 @@ const Allow = () => {
          return fail(value, 'is too small');
       if (value > maxValue)
          return fail(value, 'is too large');
+      return true;
    };
    
    const fail = (value, message) => {

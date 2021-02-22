@@ -1,14 +1,15 @@
 {
   "name": "@toolz/allow",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "Provides validation of data types",
   "keywords": [
-    "runtime",
-    "validation",
     "data type",
     "inputs",
     "interfaces",
-    "javascript"
+    "javascript",
+    "runtime",
+    "unit testing",
+    "validation"
   ],
   "homepage": "https://github.com/bytebodger/allow",
   "bugs": {

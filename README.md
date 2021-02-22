@@ -3,6 +3,8 @@
 `allow`
 is a library that checks data types and _allows_ the script to continue if they pass the check. If the check fails, the script can throw an `Error`, or emit a warning, or invoke a custom callback. The package was written to ensure that only the "right" kind of data is allowed into the body of a function / method / component / etc. The intention is to provide effective _runtime_ validation of data before it reaches application logic.
 
+Another goal is to eliminate the need for unit tests that only test a function's / method's operation when it receives the "wrong" kind of data. By validating that data at runtime, we are ensuring that the internal logic of the function / method is only invoke if it has been supplied with data of the expected type.
+
 ## Usage
 
 After installation, import the package:
