@@ -115,7 +115,7 @@ const Allow = () => {
    
    const anObject = (value, minNumberOfKeys = 0, maxNumberOfKeys = Number.MAX_SAFE_INTEGER) => {
       anInteger(minNumberOfKeys, is.not.negative).anInteger(maxNumberOfKeys, is.not.negative);
-      if ((typeof value !== 'object' || Array.isArray(value) || value === null))
+      if (!isAnObject(value))
          return fail(value, 'is not an object');
       checkLength(Object.keys(value), minNumberOfKeys, maxNumberOfKeys);
       return allow;

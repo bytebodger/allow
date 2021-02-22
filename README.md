@@ -5,6 +5,8 @@ is a library that checks data types and _allows_ the script to continue if they 
 
 Another goal is to eliminate the need for unit tests that only test a function's / method's operation when it receives the "wrong" kind of data. By validating that data at runtime, we are ensuring that the internal logic of the function / method is only invoked if it has been supplied with data of the expected type.
 
+**NOTE:** This library is designed for "vanilla" JS. If you are working in a React project, it's recommended to consider using `@toolz/allow-react`, which offers special behavior for evaluating React elements.
+
 ## Usage
 
 After installation, import the package:
@@ -24,7 +26,7 @@ const addSalesTax = originalPrice => {
 }
 ```
 
-In the above example, the assumption is that `originalPrice`should _always_ be a number. If any other data type is provided for `originalPrice`, the `allow`check will fail. This means that a value of `'32.99'`will fail (because it's a string).  `null`will fail. Boolean values will fail. Anything that is _not_ a number will fail. In this example, the second argument (which is optional), indicates the minimum acceptable value of the number. In this case, we don't want negative values for `originalPrice`, so nothing below `0`will pass the check.
+In the above example, the assumption is that `originalPrice` should _always_ be a number. If any other data type is provided for `originalPrice`, the `allow`check will fail. This means that a value of `'32.99'`will fail (because it's a string).  `null`will fail. Boolean values will fail. Anything that is _not_ a number will fail. In this example, the second argument (which is optional), indicates the minimum acceptable value of the number. In this case, we don't want negative values for `originalPrice`, so nothing below `0`will pass the check.
 
 ## Methods
 
