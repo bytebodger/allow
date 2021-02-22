@@ -45,6 +45,7 @@ class AClass {
 const aFalse = false;
 const aFalseString = 'false';
 const aFunction = () => 'foo';
+const anAlphabetString = 'abcdefghijklmnopqrstuvwxzy';
 const anArrayOfArrays = [[9, 8, 7], ['foo', 'fie', 'fee'], [{one: 1}, {two: 2}], []];
 const anArrayOfIntegers = [2, 9, 42, 187];
 const anArrayOfMixedTypes = ['string', {}, 42, 3.14, ['fee', 'fie', {}], {uno: 'one', dos: 'two'}];
@@ -56,6 +57,7 @@ const aNegative1 = -1;
 const aNegativePi = -3.14;
 const anEmptyArray = [];
 const anEmptyObject = {};
+const anEmptyString = '';
 const aNull = null;
 const aNumber0 = 0;
 const aNumber1 = 1;
@@ -93,6 +95,7 @@ test('aBoolean() should throw an error when checking anything other than a Boole
    expect(() => allow.aBoolean(AClass)).toThrow();
    expect(() => allow.aBoolean(aFalseString)).toThrow();
    expect(() => allow.aBoolean(aFunction)).toThrow();
+   expect(() => allow.aBoolean(anAlphabetString)).toThrow();
    expect(() => allow.aBoolean(anArrayOfArrays)).toThrow();
    expect(() => allow.aBoolean(anArrayOfIntegers)).toThrow();
    expect(() => allow.aBoolean(anArrayOfMixedTypes)).toThrow();
@@ -104,6 +107,7 @@ test('aBoolean() should throw an error when checking anything other than a Boole
    expect(() => allow.aBoolean(aNegativePi)).toThrow();
    expect(() => allow.aBoolean(anEmptyArray)).toThrow();
    expect(() => allow.aBoolean(anEmptyObject)).toThrow();
+   expect(() => allow.aBoolean(anEmptyString)).toThrow();
    expect(() => allow.aBoolean(aNull)).toThrow();
    expect(() => allow.aBoolean(aNumber0)).toThrow();
    expect(() => allow.aBoolean(aNumber1)).toThrow();
@@ -130,6 +134,7 @@ test('aFunction() should throw an error when checking anything other than a func
    expect(() => allow.aFunction(AClass)).toThrow();
    expect(() => allow.aFunction(aFalse)).toThrow();
    expect(() => allow.aFunction(aFalseString)).toThrow();
+   expect(() => allow.aFunction(anAlphabetString)).toThrow();
    expect(() => allow.aFunction(anArrayOfArrays)).toThrow();
    expect(() => allow.aFunction(anArrayOfIntegers)).toThrow();
    expect(() => allow.aFunction(anArrayOfMixedTypes)).toThrow();
@@ -141,6 +146,7 @@ test('aFunction() should throw an error when checking anything other than a func
    expect(() => allow.aFunction(aNegativePi)).toThrow();
    expect(() => allow.aFunction(anEmptyArray)).toThrow();
    expect(() => allow.aFunction(anEmptyObject)).toThrow();
+   expect(() => allow.aFunction(anEmptyString)).toThrow();
    expect(() => allow.aFunction(aNull)).toThrow();
    expect(() => allow.aFunction(aNumber0)).toThrow();
    expect(() => allow.aFunction(aNumber1)).toThrow();
@@ -207,9 +213,11 @@ test('anArray() should throw an error when checking anything other than an array
    expect(() => allow.anArray(aFalse)).toThrow();
    expect(() => allow.anArray(aFalseString)).toThrow();
    expect(() => allow.anArray(aFunction)).toThrow();
+   expect(() => allow.anArray(anAlphabetString)).toThrow();
    expect(() => allow.anArray(aNegative1)).toThrow();
    expect(() => allow.anArray(aNegativePi)).toThrow();
    expect(() => allow.anArray(anEmptyObject)).toThrow();
+   expect(() => allow.anArray(anEmptyString)).toThrow();
    expect(() => allow.anArray(aNull)).toThrow();
    expect(() => allow.anArray(aNumber0)).toThrow();
    expect(() => allow.anArray(aNumber1)).toThrow();
@@ -252,6 +260,7 @@ test('anArrayOfArrays() should throw an error when checking anything other than 
    expect(() => allow.anArrayOfArrays(aFalse)).toThrow();
    expect(() => allow.anArrayOfArrays(aFalseString)).toThrow();
    expect(() => allow.anArrayOfArrays(aFunction)).toThrow();
+   expect(() => allow.anArrayOfArrays(anAlphabetString)).toThrow();
    expect(() => allow.anArrayOfArrays(anArrayOfIntegers)).toThrow();
    expect(() => allow.anArrayOfArrays(anArrayOfMixedTypes)).toThrow();
    expect(() => allow.anArrayOfArrays(anArrayOfNumbers)).toThrow();
@@ -261,6 +270,7 @@ test('anArrayOfArrays() should throw an error when checking anything other than 
    expect(() => allow.anArrayOfArrays(aNegative1)).toThrow();
    expect(() => allow.anArrayOfArrays(aNegativePi)).toThrow();
    expect(() => allow.anArrayOfArrays(anEmptyObject)).toThrow();
+   expect(() => allow.anArrayOfArrays(anEmptyString)).toThrow();
    expect(() => allow.anArrayOfArrays(aNull)).toThrow();
    expect(() => allow.anArrayOfArrays(aNumber0)).toThrow();
    expect(() => allow.anArrayOfArrays(aNumber1)).toThrow();
@@ -316,6 +326,7 @@ test('anArrayOfInstances() should throw an error when checking anything other th
    expect(() => allow.anArrayOfInstances(aFalse, person)).toThrow();
    expect(() => allow.anArrayOfInstances(aFalseString, person)).toThrow();
    expect(() => allow.anArrayOfInstances(aFunction, person)).toThrow();
+   expect(() => allow.anArrayOfInstances(anAlphabetString, person)).toThrow();
    expect(() => allow.anArrayOfInstances(anArrayOfArrays, person)).toThrow();
    expect(() => allow.anArrayOfInstances(anArrayOfIntegers, person)).toThrow();
    expect(() => allow.anArrayOfInstances(anArrayOfMixedTypes, person)).toThrow();
@@ -325,6 +336,7 @@ test('anArrayOfInstances() should throw an error when checking anything other th
    expect(() => allow.anArrayOfInstances(aNegative1, person)).toThrow();
    expect(() => allow.anArrayOfInstances(aNegativePi, person)).toThrow();
    expect(() => allow.anArrayOfInstances(anEmptyObject, person)).toThrow();
+   expect(() => allow.anArrayOfInstances(anEmptyString, person)).toThrow();
    expect(() => allow.anArrayOfInstances(aNull, person)).toThrow();
    expect(() => allow.anArrayOfInstances(aNumber0, person)).toThrow();
    expect(() => allow.anArrayOfInstances(aNumber1, person)).toThrow();
@@ -367,6 +379,7 @@ test('anArrayOfIntegers() should throw an error when checking anything other tha
    expect(() => allow.anArrayOfIntegers(aFalse)).toThrow();
    expect(() => allow.anArrayOfIntegers(aFalseString)).toThrow();
    expect(() => allow.anArrayOfIntegers(aFunction)).toThrow();
+   expect(() => allow.anArrayOfIntegers(anAlphabetString)).toThrow();
    expect(() => allow.anArrayOfIntegers(anArrayOfArrays)).toThrow();
    expect(() => allow.anArrayOfIntegers(anArrayOfMixedTypes)).toThrow();
    expect(() => allow.anArrayOfIntegers(anArrayOfNumbers)).toThrow();
@@ -376,6 +389,7 @@ test('anArrayOfIntegers() should throw an error when checking anything other tha
    expect(() => allow.anArrayOfIntegers(aNegative1)).toThrow();
    expect(() => allow.anArrayOfIntegers(aNegativePi)).toThrow();
    expect(() => allow.anArrayOfIntegers(anEmptyObject)).toThrow();
+   expect(() => allow.anArrayOfIntegers(anEmptyString)).toThrow();
    expect(() => allow.anArrayOfIntegers(aNull)).toThrow();
    expect(() => allow.anArrayOfIntegers(aNumber0)).toThrow();
    expect(() => allow.anArrayOfIntegers(aNumber1)).toThrow();
@@ -419,6 +433,7 @@ test('anArrayOfNumbers() should throw an error when checking anything other than
    expect(() => allow.anArrayOfNumbers(aFalse)).toThrow();
    expect(() => allow.anArrayOfNumbers(aFalseString)).toThrow();
    expect(() => allow.anArrayOfNumbers(aFunction)).toThrow();
+   expect(() => allow.anArrayOfNumbers(anAlphabetString)).toThrow();
    expect(() => allow.anArrayOfNumbers(anArrayOfArrays)).toThrow();
    expect(() => allow.anArrayOfNumbers(anArrayOfMixedTypes)).toThrow();
    expect(() => allow.anArrayOfNumbers(anArrayOfObjects)).toThrow();
@@ -427,6 +442,7 @@ test('anArrayOfNumbers() should throw an error when checking anything other than
    expect(() => allow.anArrayOfNumbers(aNegative1)).toThrow();
    expect(() => allow.anArrayOfNumbers(aNegativePi)).toThrow();
    expect(() => allow.anArrayOfNumbers(anEmptyObject)).toThrow();
+   expect(() => allow.anArrayOfNumbers(anEmptyString)).toThrow();
    expect(() => allow.anArrayOfNumbers(aNull)).toThrow();
    expect(() => allow.anArrayOfNumbers(aNumber0)).toThrow();
    expect(() => allow.anArrayOfNumbers(aNumber1)).toThrow();
@@ -470,6 +486,7 @@ test('anArrayOfObjects() should throw an error when checking anything other than
    expect(() => allow.anArrayOfObjects(aFalse)).toThrow();
    expect(() => allow.anArrayOfObjects(aFalseString)).toThrow();
    expect(() => allow.anArrayOfObjects(aFunction)).toThrow();
+   expect(() => allow.anArrayOfObjects(anAlphabetString)).toThrow();
    expect(() => allow.anArrayOfObjects(anArrayOfArrays)).toThrow();
    expect(() => allow.anArrayOfObjects(anArrayOfIntegers)).toThrow();
    expect(() => allow.anArrayOfObjects(anArrayOfMixedTypes)).toThrow();
@@ -478,6 +495,7 @@ test('anArrayOfObjects() should throw an error when checking anything other than
    expect(() => allow.anArrayOfObjects(aNegative1)).toThrow();
    expect(() => allow.anArrayOfObjects(aNegativePi)).toThrow();
    expect(() => allow.anArrayOfObjects(anEmptyObject)).toThrow();
+   expect(() => allow.anArrayOfObjects(anEmptyString)).toThrow();
    expect(() => allow.anArrayOfObjects(aNull)).toThrow();
    expect(() => allow.anArrayOfObjects(aNumber0)).toThrow();
    expect(() => allow.anArrayOfObjects(aNumber1)).toThrow();
@@ -520,6 +538,7 @@ test('anArrayOfStrings() should throw an error when checking anything other than
    expect(() => allow.anArrayOfStrings(aFalse)).toThrow();
    expect(() => allow.anArrayOfStrings(aFalseString)).toThrow();
    expect(() => allow.anArrayOfStrings(aFunction)).toThrow();
+   expect(() => allow.anArrayOfStrings(anAlphabetString)).toThrow();
    expect(() => allow.anArrayOfStrings(anArrayOfArrays)).toThrow();
    expect(() => allow.anArrayOfStrings(anArrayOfIntegers)).toThrow();
    expect(() => allow.anArrayOfStrings(anArrayOfMixedTypes)).toThrow();
@@ -529,6 +548,7 @@ test('anArrayOfStrings() should throw an error when checking anything other than
    expect(() => allow.anArrayOfStrings(aNegative1)).toThrow();
    expect(() => allow.anArrayOfStrings(aNegativePi)).toThrow();
    expect(() => allow.anArrayOfStrings(anEmptyObject)).toThrow();
+   expect(() => allow.anArrayOfStrings(anEmptyString)).toThrow();
    expect(() => allow.anArrayOfStrings(aNull)).toThrow();
    expect(() => allow.anArrayOfStrings(aNumber0)).toThrow();
    expect(() => allow.anArrayOfStrings(aNumber1)).toThrow();
@@ -578,6 +598,7 @@ test('anInstanceOf() should throw an error when checking anything other than an 
    expect(() => allow.anInstanceOf(aFalse, person)).toThrow();
    expect(() => allow.anInstanceOf(aFalseString, person)).toThrow();
    expect(() => allow.anInstanceOf(aFunction, person)).toThrow();
+   expect(() => allow.anInstanceOf(anAlphabetString, person)).toThrow();
    expect(() => allow.anInstanceOf(anArrayOfArrays, person)).toThrow();
    expect(() => allow.anInstanceOf(anArrayOfIntegers, person)).toThrow();
    expect(() => allow.anInstanceOf(anArrayOfMixedTypes, person)).toThrow();
@@ -589,6 +610,7 @@ test('anInstanceOf() should throw an error when checking anything other than an 
    expect(() => allow.anInstanceOf(aNegativePi, person)).toThrow();
    expect(() => allow.anInstanceOf(anEmptyArray, person)).toThrow();
    expect(() => allow.anInstanceOf(anEmptyObject, person)).toThrow();
+   expect(() => allow.anInstanceOf(anEmptyString, person)).toThrow();
    expect(() => allow.anInstanceOf(aNull, person)).toThrow();
    expect(() => allow.anInstanceOf(aNumber0, person)).toThrow();
    expect(() => allow.anInstanceOf(aNumber1, person)).toThrow();
@@ -641,6 +663,7 @@ test('anInteger() should throw an error when checking anything other than an int
    expect(() => allow.anInteger(aFalse)).toThrow();
    expect(() => allow.anInteger(aFalseString)).toThrow();
    expect(() => allow.anInteger(aFunction)).toThrow();
+   expect(() => allow.anInteger(anAlphabetString)).toThrow();
    expect(() => allow.anInteger(anArrayOfArrays)).toThrow();
    expect(() => allow.anInteger(anArrayOfIntegers)).toThrow();
    expect(() => allow.anInteger(anArrayOfMixedTypes)).toThrow();
@@ -651,10 +674,198 @@ test('anInteger() should throw an error when checking anything other than an int
    expect(() => allow.anInteger(aNegativePi)).toThrow();
    expect(() => allow.anInteger(anEmptyArray)).toThrow();
    expect(() => allow.anInteger(anEmptyObject)).toThrow();
+   expect(() => allow.anInteger(anEmptyString)).toThrow();
    expect(() => allow.anInteger(aNull)).toThrow();
    expect(() => allow.anInteger(anUndefined)).toThrow();
    expect(() => allow.anInteger(aPi)).toThrow();
    expect(() => allow.anInteger(aPopulatedObject)).toThrow();
    expect(() => allow.anInteger(aTrue)).toThrow();
    expect(() => allow.anInteger(aTrueString)).toThrow();
+});
+
+// anObject()
+
+test('anObject() should pass when checking any object', () => {
+   expect(allow.anObject(anEmptyObject)).toEqual(expect.any(Object));
+   expect(allow.anObject(aPopulatedObject)).toEqual(expect.any(Object));
+});
+
+test('after setting allowNull to TRUE, anObject() should pass when checking a NULL value', () => {
+   allow.setAllowNull(true);
+   expect(allow.anObject(aNull)).toEqual(expect.any(Object));
+   allow.setAllowNull(false);
+});
+
+test('anObject() should pass when checking objects that have a minimum number of keys', () => {
+   expect(allow.anObject(aBriefPerson, 1)).toEqual(expect.any(Object));
+   expect(allow.anObject(aPerson, 1)).toEqual(expect.any(Object));
+   expect(allow.anObject(aLongerPerson, 1)).toEqual(expect.any(Object));
+   expect(allow.anObject(aPopulatedObject, 1)).toEqual(expect.any(Object));
+});
+
+test('anObject() should pass when checking objects with a minimum and a maximum number of keys', () => {
+   expect(allow.anObject(aBriefPerson, 1, 50)).toEqual(expect.any(Object));
+   expect(allow.anObject(aPerson, 1, 50)).toEqual(expect.any(Object));
+   expect(allow.anObject(aLongerPerson, 1, 50)).toEqual(expect.any(Object));
+   expect(allow.anObject(aPopulatedObject, 1, 50)).toEqual(expect.any(Object));
+});
+
+test('anObject() should throw an error when checking objects that are outside the range of required keys', () => {
+   expect(() => allow.anObject(aBriefPerson, 20, 50)).toThrow();
+   expect(() => allow.anObject(aPerson, 20, 50)).toThrow();
+   expect(() => allow.anObject(aLongerPerson, 20, 50)).toThrow();
+   expect(() => allow.anObject(aPopulatedObject, 20, 50)).toThrow();
+});
+
+test('anObject() should throw an error when checking anything other than an integer', () => {
+   expect(() => allow.anObject(AClass)).toThrow();
+   expect(() => allow.anObject(aFalse)).toThrow();
+   expect(() => allow.anObject(aFalseString)).toThrow();
+   expect(() => allow.anObject(aFunction)).toThrow();
+   expect(() => allow.anObject(anAlphabetString)).toThrow();
+   expect(() => allow.anObject(anArrayOfArrays)).toThrow();
+   expect(() => allow.anObject(anArrayOfIntegers)).toThrow();
+   expect(() => allow.anObject(anArrayOfMixedTypes)).toThrow();
+   expect(() => allow.anObject(anArrayOfNumbers)).toThrow();
+   expect(() => allow.anObject(anArrayOfObjects)).toThrow();
+   expect(() => allow.anObject(anArrayOfPeople)).toThrow();
+   expect(() => allow.anObject(anArrayOfStrings)).toThrow();
+   expect(() => allow.anObject(aNegative1)).toThrow();
+   expect(() => allow.anObject(aNegativePi)).toThrow();
+   expect(() => allow.anObject(anEmptyArray)).toThrow();
+   expect(() => allow.anObject(anEmptyString)).toThrow();
+   expect(() => allow.anObject(aNull)).toThrow();
+   expect(() => allow.anObject(aNumber0)).toThrow();
+   expect(() => allow.anObject(aNumber1)).toThrow();
+   expect(() => allow.anObject(aNumber1WithDecimals)).toThrow();
+   expect(() => allow.anObject(anUndefined)).toThrow();
+   expect(() => allow.anObject(aPi)).toThrow();
+   expect(() => allow.anObject(aTrue)).toThrow();
+   expect(() => allow.anObject(aTrueString)).toThrow();
+});
+
+// aNumber()
+
+test('aNumber() should pass when checking any number', () => {
+   expect(allow.aNumber(aNegative1)).toEqual(expect.any(Object));
+   expect(allow.aNumber(aNegativePi)).toEqual(expect.any(Object));
+   expect(allow.aNumber(aNumber0)).toEqual(expect.any(Object));
+   expect(allow.aNumber(aNumber1)).toEqual(expect.any(Object));
+   expect(allow.aNumber(aNumber1WithDecimals)).toEqual(expect.any(Object));
+   expect(allow.aNumber(aPi)).toEqual(expect.any(Object));
+});
+
+test('after setting allowNull to TRUE, aNumber() should pass when checking a NULL value', () => {
+   allow.setAllowNull(true);
+   expect(allow.aNumber(aNull)).toEqual(expect.any(Object));
+   allow.setAllowNull(false);
+});
+
+test('aNumber() should pass when checking numbers that meet a minimum value', () => {
+   expect(allow.aNumber(aNegative1, -2)).toEqual(expect.any(Object));
+   expect(allow.aNumber(aNegativePi, -4)).toEqual(expect.any(Object));
+   expect(allow.aNumber(aNumber0, -1)).toEqual(expect.any(Object));
+   expect(allow.aNumber(aNumber1, 0)).toEqual(expect.any(Object));
+   expect(allow.aNumber(aNumber1WithDecimals, 0)).toEqual(expect.any(Object));
+   expect(allow.aNumber(aPi, 3)).toEqual(expect.any(Object));
+});
+
+test('aNumber() should pass when checking numbers with a minimum value and a maximum value', () => {
+   expect(allow.aNumber(aNegative1, -2, 0)).toEqual(expect.any(Object));
+   expect(allow.aNumber(aNegativePi, -4, -3)).toEqual(expect.any(Object));
+   expect(allow.aNumber(aNumber0, -1, 1)).toEqual(expect.any(Object));
+   expect(allow.aNumber(aNumber1, 0, 2)).toEqual(expect.any(Object));
+   expect(allow.aNumber(aNumber1WithDecimals, 0, 2)).toEqual(expect.any(Object));
+   expect(allow.aNumber(aPi, 3, 4)).toEqual(expect.any(Object));
+});
+
+test('aNumber() should throw an error when checking numbers that are outside the required range', () => {
+   expect(() => allow.aNumber(aNegative1, 20, 50)).toThrow();
+   expect(() => allow.aNumber(aNegativePi, 20, 50)).toThrow();
+   expect(() => allow.aNumber(aNumber0, 20, 50)).toThrow();
+   expect(() => allow.aNumber(aNumber1, 20, 50)).toThrow();
+   expect(() => allow.aNumber(aNumber1WithDecimals, 20, 50)).toThrow();
+   expect(() => allow.aNumber(aPi, 20, 50)).toThrow();
+});
+
+test('aNumber() should throw an error when checking anything other than a number', () => {
+   expect(() => allow.aNumber(AClass)).toThrow();
+   expect(() => allow.aNumber(aFalse)).toThrow();
+   expect(() => allow.aNumber(aFalseString)).toThrow();
+   expect(() => allow.aNumber(aFunction)).toThrow();
+   expect(() => allow.aNumber(anAlphabetString)).toThrow();
+   expect(() => allow.aNumber(anArrayOfArrays)).toThrow();
+   expect(() => allow.aNumber(anArrayOfIntegers)).toThrow();
+   expect(() => allow.aNumber(anArrayOfMixedTypes)).toThrow();
+   expect(() => allow.aNumber(anArrayOfNumbers)).toThrow();
+   expect(() => allow.aNumber(anArrayOfObjects)).toThrow();
+   expect(() => allow.aNumber(anArrayOfPeople)).toThrow();
+   expect(() => allow.aNumber(anArrayOfStrings)).toThrow();
+   expect(() => allow.aNumber(anEmptyArray)).toThrow();
+   expect(() => allow.aNumber(anEmptyObject)).toThrow();
+   expect(() => allow.aNumber(anEmptyString)).toThrow();
+   expect(() => allow.aNumber(aNull)).toThrow();
+   expect(() => allow.aNumber(anUndefined)).toThrow();
+   expect(() => allow.aNumber(aPopulatedObject)).toThrow();
+   expect(() => allow.aNumber(aTrue)).toThrow();
+   expect(() => allow.aNumber(aTrueString)).toThrow();
+});
+
+// aString()
+
+test('aString() should pass when checking any string', () => {
+   expect(allow.aString(aFalseString)).toEqual(expect.any(Object));
+   expect(allow.aString(anAlphabetString)).toEqual(expect.any(Object));
+   expect(allow.aString(anEmptyString)).toEqual(expect.any(Object));
+   expect(allow.aString(aTrueString)).toEqual(expect.any(Object));
+});
+
+test('after setting allowNull to TRUE, aString() should pass when checking a NULL value', () => {
+   allow.setAllowNull(true);
+   expect(allow.aString(aNull)).toEqual(expect.any(Object));
+   allow.setAllowNull(false);
+});
+
+test('aString() should pass when checking strings that meet a minimum length', () => {
+   expect(allow.aString(aFalseString, 4)).toEqual(expect.any(Object));
+   expect(allow.aString(anAlphabetString, 25)).toEqual(expect.any(Object));
+   expect(allow.aString(aTrueString, 3)).toEqual(expect.any(Object));
+});
+
+test('aString() should pass when checking strings with a minimum length and a maximum length', () => {
+   expect(allow.aString(aFalseString, 4, 30)).toEqual(expect.any(Object));
+   expect(allow.aString(anAlphabetString, 25, 30)).toEqual(expect.any(Object));
+   expect(allow.aString(aTrueString, 3, 30)).toEqual(expect.any(Object));
+});
+
+test('aString() should throw an error when checking strings that are outside the required length', () => {
+   expect(() => allow.aString(aFalseString, 28, 30)).toThrow();
+   expect(() => allow.aString(anAlphabetString, 28, 30)).toThrow();
+   expect(() => allow.aString(anEmptyString, 28, 30)).toThrow();
+   expect(() => allow.aString(aTrueString, 28, 30)).toThrow();
+});
+
+test('aString() should throw an error when checking anything other than a string', () => {
+   expect(() => allow.aString(AClass)).toThrow();
+   expect(() => allow.aString(aFalse)).toThrow();
+   expect(() => allow.aString(aFunction)).toThrow();
+   expect(() => allow.aString(anArrayOfArrays)).toThrow();
+   expect(() => allow.aString(anArrayOfIntegers)).toThrow();
+   expect(() => allow.aString(anArrayOfMixedTypes)).toThrow();
+   expect(() => allow.aString(anArrayOfNumbers)).toThrow();
+   expect(() => allow.aString(anArrayOfObjects)).toThrow();
+   expect(() => allow.aString(anArrayOfPeople)).toThrow();
+   expect(() => allow.aString(anArrayOfStrings)).toThrow();
+   expect(() => allow.aString(aNegative1)).toThrow();
+   expect(() => allow.aString(aNegativePi)).toThrow();
+   expect(() => allow.aString(anEmptyArray)).toThrow();
+   expect(() => allow.aString(anEmptyObject)).toThrow();
+   expect(() => allow.aString(aNull)).toThrow();
+   expect(() => allow.aString(aNumber0)).toThrow();
+   expect(() => allow.aString(aNumber1)).toThrow();
+   expect(() => allow.aString(aNumber1WithDecimals)).toThrow();
+   expect(() => allow.aString(anUndefined)).toThrow();
+   expect(() => allow.aString(aPi)).toThrow();
+   expect(() => allow.aString(aPopulatedObject)).toThrow();
+   expect(() => allow.aString(aTrue)).toThrow();
 });
