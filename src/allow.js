@@ -14,8 +14,6 @@ const Allow = () => {
    const aFunction = value => {
       if (typeof value !== 'function')
          return fail(value, 'is not a function');
-      if (!value.prototype.constructor.toString().includes('Function()'))
-         return fail(value, 'is not a function');
       return allow;
    };
    
@@ -181,8 +179,14 @@ const Allow = () => {
    const isAnObject = value => typeof value === 'object' && !Array.isArray(value) && value !== null;
    
    const oneOf = (value, allowedValues) => {
+      if (allowNull && value === null)
+         return allow;
+      if (isAnObject(value) || Array.isArray(value) || typeof value === 'function') {
+         fail(value, 'cannot be an object, array, or function');
+         return allow;
+      }
       if (typeof allowedValues !== 'object' || allowedValues === null) {
-         fail(allowedValues, 'oneOf allowedValues must be an object or an array');
+         fail(allowedValues, 'allowedValues must be supplied in an object or an array');
          return allow;
       }
       if (Array.isArray(allowedValues)) {

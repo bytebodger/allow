@@ -1,6 +1,6 @@
 {
   "name": "@toolz/allow",
-  "version": "0.0.19",
+  "version": "1.0.0",
   "description": "Provides validation of data types",
   "keywords": [
     "data type",
@@ -39,6 +39,13 @@
     "@babel/preset-env": "^7.11.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "jest": "^26.6.3",
+    "jest-matcher-one-of": "^1.0.2",
     "nodemon": "^2.0.4"
-  }
+  },
+  "browserslist": [
+    "last 1 chrome version",
+    "last 1 firefox version",
+    "last 1 safari version",
+    "last 1 ie version"
+  ]
 }

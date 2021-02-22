@@ -1,4 +1,5 @@
 import { allow } from './allow';
+import 'jest-matcher-one-of';
 
 const briefPerson = {
    first: '',
@@ -38,10 +39,6 @@ const aLongerPerson = {
    hairColor: 'brown',
 };
 
-class AClass {
-   foo = 'bar';
-}
-
 const aFalse = false;
 const aFalseString = 'false';
 const aFunction = () => 'foo';
@@ -68,14 +65,24 @@ const aPopulatedObject = {all: 'for', one: 'and', none: 'for', paul: ''};
 const aTrue = true;
 const aTrueString = 'true';
 
+let totalConsoleWarnings = 0;
+let totalOnFailureInvokations = 0;
+
+const customOnFailure = () => {
+   totalOnFailureInvokations++;
+   return false;
+};
 
 beforeEach(() => {
    jest.spyOn(console, 'error');
    console.error.mockImplementation(() => null);
+   jest.spyOn(console, 'warn');
+   console.warn.mockImplementation(() => totalConsoleWarnings++);
 });
 
 afterEach(() => {
    console.error.mockRestore();
+   console.warn.mockRestore();
 });
 
 // aBoolean()
@@ -92,7 +99,6 @@ test('after setting allowNull to TRUE, aBoolean() should pass when checking a NU
 });
 
 test('aBoolean() should throw an error when checking anything other than a Boolean value', () => {
-   expect(() => allow.aBoolean(AClass)).toThrow();
    expect(() => allow.aBoolean(aFalseString)).toThrow();
    expect(() => allow.aBoolean(aFunction)).toThrow();
    expect(() => allow.aBoolean(anAlphabetString)).toThrow();
@@ -131,7 +137,6 @@ test('after setting allowNull to TRUE, aFunction() should pass when checking a N
 });
 
 test('aFunction() should throw an error when checking anything other than a function', () => {
-   expect(() => allow.aFunction(AClass)).toThrow();
    expect(() => allow.aFunction(aFalse)).toThrow();
    expect(() => allow.aFunction(aFalseString)).toThrow();
    expect(() => allow.aFunction(anAlphabetString)).toThrow();
@@ -209,7 +214,6 @@ test('anArray() should throw an error when checking arrays that are outside the 
 });
 
 test('anArray() should throw an error when checking anything other than an array', () => {
-   expect(() => allow.anArray(AClass)).toThrow();
    expect(() => allow.anArray(aFalse)).toThrow();
    expect(() => allow.anArray(aFalseString)).toThrow();
    expect(() => allow.anArray(aFunction)).toThrow();
@@ -256,7 +260,6 @@ test('anArrayOfArrays() should throw an error when checking arrays-of-arrays tha
 });
 
 test('anArrayOfArrays() should throw an error when checking anything other than an array-of-arrays', () => {
-   expect(() => allow.anArrayOfArrays(AClass)).toThrow();
    expect(() => allow.anArrayOfArrays(aFalse)).toThrow();
    expect(() => allow.anArrayOfArrays(aFalseString)).toThrow();
    expect(() => allow.anArrayOfArrays(aFunction)).toThrow();
@@ -322,7 +325,6 @@ test('anArrayOfInstances() should throw an error when checking arrays-of-instanc
 });
 
 test('anArrayOfInstances() should throw an error when checking anything other than an array-of-instances', () => {
-   expect(() => allow.anArrayOfInstances(AClass, person)).toThrow();
    expect(() => allow.anArrayOfInstances(aFalse, person)).toThrow();
    expect(() => allow.anArrayOfInstances(aFalseString, person)).toThrow();
    expect(() => allow.anArrayOfInstances(aFunction, person)).toThrow();
@@ -375,7 +377,6 @@ test('anArrayOfIntegers() should throw an error when checking arrays-of-integers
 });
 
 test('anArrayOfIntegers() should throw an error when checking anything other than an array-of-integers', () => {
-   expect(() => allow.anArrayOfIntegers(AClass)).toThrow();
    expect(() => allow.anArrayOfIntegers(aFalse)).toThrow();
    expect(() => allow.anArrayOfIntegers(aFalseString)).toThrow();
    expect(() => allow.anArrayOfIntegers(aFunction)).toThrow();
@@ -429,7 +430,6 @@ test('anArrayOfNumbers() should throw an error when checking arrays-of-numbers t
 });
 
 test('anArrayOfNumbers() should throw an error when checking anything other than an array-of-numbers', () => {
-   expect(() => allow.anArrayOfNumbers(AClass)).toThrow();
    expect(() => allow.anArrayOfNumbers(aFalse)).toThrow();
    expect(() => allow.anArrayOfNumbers(aFalseString)).toThrow();
    expect(() => allow.anArrayOfNumbers(aFunction)).toThrow();
@@ -482,7 +482,6 @@ test('anArrayOfObjects() should throw an error when checking arrays-of-objects t
 });
 
 test('anArrayOfObjects() should throw an error when checking anything other than an array-of-objects', () => {
-   expect(() => allow.anArrayOfObjects(AClass)).toThrow();
    expect(() => allow.anArrayOfObjects(aFalse)).toThrow();
    expect(() => allow.anArrayOfObjects(aFalseString)).toThrow();
    expect(() => allow.anArrayOfObjects(aFunction)).toThrow();
@@ -534,7 +533,6 @@ test('anArrayOfStrings() should throw an error when checking arrays-of-strings t
 });
 
 test('anArrayOfStrings() should throw an error when checking anything other than an array-of-strings', () => {
-   expect(() => allow.anArrayOfStrings(AClass)).toThrow();
    expect(() => allow.anArrayOfStrings(aFalse)).toThrow();
    expect(() => allow.anArrayOfStrings(aFalseString)).toThrow();
    expect(() => allow.anArrayOfStrings(aFunction)).toThrow();
@@ -594,7 +592,6 @@ test('anInstanceOf() should throw an error when the supplied object does not con
 });
 
 test('anInstanceOf() should throw an error when checking anything other than an instance of the model object', () => {
-   expect(() => allow.anInstanceOf(AClass, person)).toThrow();
    expect(() => allow.anInstanceOf(aFalse, person)).toThrow();
    expect(() => allow.anInstanceOf(aFalseString, person)).toThrow();
    expect(() => allow.anInstanceOf(aFunction, person)).toThrow();
@@ -659,7 +656,6 @@ test('anInteger() should throw an error when checking integers that are outside 
 });
 
 test('anInteger() should throw an error when checking anything other than an integer', () => {
-   expect(() => allow.anInteger(AClass)).toThrow();
    expect(() => allow.anInteger(aFalse)).toThrow();
    expect(() => allow.anInteger(aFalseString)).toThrow();
    expect(() => allow.anInteger(aFunction)).toThrow();
@@ -718,7 +714,6 @@ test('anObject() should throw an error when checking objects that are outside th
 });
 
 test('anObject() should throw an error when checking anything other than an integer', () => {
-   expect(() => allow.anObject(AClass)).toThrow();
    expect(() => allow.anObject(aFalse)).toThrow();
    expect(() => allow.anObject(aFalseString)).toThrow();
    expect(() => allow.anObject(aFunction)).toThrow();
@@ -789,7 +784,6 @@ test('aNumber() should throw an error when checking numbers that are outside the
 });
 
 test('aNumber() should throw an error when checking anything other than a number', () => {
-   expect(() => allow.aNumber(AClass)).toThrow();
    expect(() => allow.aNumber(aFalse)).toThrow();
    expect(() => allow.aNumber(aFalseString)).toThrow();
    expect(() => allow.aNumber(aFunction)).toThrow();
@@ -846,7 +840,6 @@ test('aString() should throw an error when checking strings that are outside the
 });
 
 test('aString() should throw an error when checking anything other than a string', () => {
-   expect(() => allow.aString(AClass)).toThrow();
    expect(() => allow.aString(aFalse)).toThrow();
    expect(() => allow.aString(aFunction)).toThrow();
    expect(() => allow.aString(anArrayOfArrays)).toThrow();
@@ -868,4 +861,172 @@ test('aString() should throw an error when checking anything other than a string
    expect(() => allow.aString(aPi)).toThrow();
    expect(() => allow.aString(aPopulatedObject)).toThrow();
    expect(() => allow.aString(aTrue)).toThrow();
+});
+
+// getAllowNull()
+
+test('getAllowNull() should return a Boolean', () => {
+   expect(allow.getAllowNull()).toEqual(expect.any(Boolean));
+});
+
+// getFailureBehavior()
+
+test('getFailureBehavior() should return ignore, throw, or warn', () => {
+   expect(allow.getFailureBehavior()).toBeOneOf(['ignore', 'throw', 'warn']);
+});
+
+// getOnFailure()
+
+test('getOnFailure() should return a function', () => {
+   expect(allow.getOnFailure()).toEqual(expect.any(Function));
+});
+
+// oneOf()
+
+test('oneOf() should pass when checking any value that exists in the allowedValues array', () => {
+   expect(allow.oneOf(42, anArrayOfIntegers)).toEqual(expect.any(Object));
+   expect(allow.oneOf(3.14, anArrayOfNumbers)).toEqual(expect.any(Object));
+   expect(allow.oneOf('two', anArrayOfStrings)).toEqual(expect.any(Object));
+});
+
+test('oneOf() should pass when checking any value that exists in the allowedValues object', () => {
+   expect(allow.oneOf('for', aPopulatedObject)).toEqual(expect.any(Object));
+   expect(allow.oneOf('jake', aPerson)).toEqual(expect.any(Object));
+});
+
+test('after setting allowNull to TRUE, oneOf() should pass when checking a NULL value', () => {
+   allow.setAllowNull(true);
+   expect(allow.oneOf(aNull, anArrayOfIntegers)).toEqual(expect.any(Object));
+   allow.setAllowNull(false);
+});
+
+test('oneOf() should throw an error when checking a value that is an object, an array, or a function', () => {
+   expect(() => allow.oneOf(anArrayOfNumbers, anArrayOfIntegers)).toThrow();
+   expect(() => allow.oneOf(aPopulatedObject, anArrayOfObjects)).toThrow();
+   expect(() => allow.oneOf(aFunction, anArrayOfIntegers)).toThrow();
+});
+
+test('oneOf() should throw an error when checking any value that does not exist in the allowedValues array', () => {
+   expect(() => allow.oneOf(987, anArrayOfIntegers)).toThrow();
+   expect(() => allow.oneOf(101010, anArrayOfNumbers)).toThrow();
+   expect(() => allow.oneOf('fruity', anArrayOfStrings)).toThrow();
+});
+
+test('oneOf() should throw an error when checking any value that does not exist in the allowedValues object', () => {
+   expect(() => allow.oneOf('foo', aPopulatedObject)).toThrow();
+   expect(() => allow.oneOf('reginald', aPerson)).toThrow();
+});
+
+// setAllowNull()
+
+test('setAllowNull() should change the behavior when null values are checked', () => {
+   allow.setAllowNull(true);
+   expect(allow.oneOf(aNull, anArrayOfIntegers)).toEqual(expect.any(Object));
+   allow.setAllowNull(false);
+   expect(() => allow.oneOf(aNull, anArrayOfIntegers)).toThrow();
+});
+
+test('setAllowNull() should throw an error when supplied a non-Boolean value', () => {
+   expect(() => allow.setAllowNull(aFalseString)).toThrow();
+   expect(() => allow.setAllowNull(aFunction)).toThrow();
+   expect(() => allow.setAllowNull(anArrayOfArrays)).toThrow();
+   expect(() => allow.setAllowNull(anArrayOfIntegers)).toThrow();
+   expect(() => allow.setAllowNull(anArrayOfMixedTypes)).toThrow();
+   expect(() => allow.setAllowNull(anArrayOfNumbers)).toThrow();
+   expect(() => allow.setAllowNull(anArrayOfObjects)).toThrow();
+   expect(() => allow.setAllowNull(anArrayOfPeople)).toThrow();
+   expect(() => allow.setAllowNull(anArrayOfStrings)).toThrow();
+   expect(() => allow.setAllowNull(aNegative1)).toThrow();
+   expect(() => allow.setAllowNull(aNegativePi)).toThrow();
+   expect(() => allow.setAllowNull(anEmptyArray)).toThrow();
+   expect(() => allow.setAllowNull(anEmptyObject)).toThrow();
+   expect(() => allow.setAllowNull(anEmptyString)).toThrow();
+   expect(() => allow.setAllowNull(aNull)).toThrow();
+   expect(() => allow.setAllowNull(aNumber0)).toThrow();
+   expect(() => allow.setAllowNull(aNumber1)).toThrow();
+   expect(() => allow.setAllowNull(aNumber1WithDecimals)).toThrow();
+   expect(() => allow.setAllowNull(anUndefined)).toThrow();
+   expect(() => allow.setAllowNull(aPi)).toThrow();
+   expect(() => allow.setAllowNull(aPopulatedObject)).toThrow();
+   expect(() => allow.setAllowNull(aTrueString)).toThrow();
+});
+
+// setFailureBehavior()
+
+test('setFailureBehavior() should change the behavior when failures occur', () => {
+   allow.setFailureBehavior('ignore');
+   expect(allow.aString(aFunction)).toEqual(expect.any(Object));
+   allow.setFailureBehavior('throw');
+   expect(() => allow.aString(aFunction)).toThrow();
+   allow.setFailureBehavior('warn');
+   const originalWarningTotal = totalConsoleWarnings;
+   expect(allow.aString(aFunction)).toEqual(expect.any(Object));
+   expect(totalConsoleWarnings).toBeGreaterThan(originalWarningTotal);
+   allow.setFailureBehavior('throw');
+   expect(() => allow.aString(aFunction)).toThrow();
+});
+
+test('setFailureBehavior() should throw an error when supplied any value other than ignore, throw, or warn', () => {
+   expect(() => allow.setFailureBehavior(aFalseString)).toThrow();
+   expect(() => allow.setFailureBehavior(aFunction)).toThrow();
+   expect(() => allow.setFailureBehavior(anArrayOfArrays)).toThrow();
+   expect(() => allow.setFailureBehavior(anArrayOfIntegers)).toThrow();
+   expect(() => allow.setFailureBehavior(anArrayOfMixedTypes)).toThrow();
+   expect(() => allow.setFailureBehavior(anArrayOfNumbers)).toThrow();
+   expect(() => allow.setFailureBehavior(anArrayOfObjects)).toThrow();
+   expect(() => allow.setFailureBehavior(anArrayOfPeople)).toThrow();
+   expect(() => allow.setFailureBehavior(anArrayOfStrings)).toThrow();
+   expect(() => allow.setFailureBehavior(aNegative1)).toThrow();
+   expect(() => allow.setFailureBehavior(aNegativePi)).toThrow();
+   expect(() => allow.setFailureBehavior(anEmptyArray)).toThrow();
+   expect(() => allow.setFailureBehavior(anEmptyObject)).toThrow();
+   expect(() => allow.setFailureBehavior(anEmptyString)).toThrow();
+   expect(() => allow.setFailureBehavior(aNull)).toThrow();
+   expect(() => allow.setFailureBehavior(aNumber0)).toThrow();
+   expect(() => allow.setFailureBehavior(aNumber1)).toThrow();
+   expect(() => allow.setFailureBehavior(aNumber1WithDecimals)).toThrow();
+   expect(() => allow.setFailureBehavior(anUndefined)).toThrow();
+   expect(() => allow.setFailureBehavior(aPi)).toThrow();
+   expect(() => allow.setFailureBehavior(aPopulatedObject)).toThrow();
+   expect(() => allow.setFailureBehavior(aTrueString)).toThrow();
+});
+
+// setOnFailure()
+
+test('the function supplied in setOnFailure() should be called on any failure', () => {
+   allow.setOnFailure(customOnFailure);
+   let originalOnFailureInvokations = totalOnFailureInvokations;
+   expect(() => allow.aString(aFunction)).toThrow();
+   expect(totalOnFailureInvokations).toBeGreaterThan(originalOnFailureInvokations);
+   allow.setOnFailure(() => {
+   });
+   originalOnFailureInvokations = totalOnFailureInvokations;
+   expect(() => allow.aString(aFunction)).toThrow();
+   expect(totalOnFailureInvokations).toEqual(originalOnFailureInvokations);
+});
+
+test('setOnFailure() should throw an error when supplied any value other than a function', () => {
+   expect(() => allow.setOnFailure(aFalse)).toThrow();
+   expect(() => allow.setOnFailure(aFalseString)).toThrow();
+   expect(() => allow.setOnFailure(anArrayOfArrays)).toThrow();
+   expect(() => allow.setOnFailure(anArrayOfIntegers)).toThrow();
+   expect(() => allow.setOnFailure(anArrayOfMixedTypes)).toThrow();
+   expect(() => allow.setOnFailure(anArrayOfNumbers)).toThrow();
+   expect(() => allow.setOnFailure(anArrayOfObjects)).toThrow();
+   expect(() => allow.setOnFailure(anArrayOfPeople)).toThrow();
+   expect(() => allow.setOnFailure(anArrayOfStrings)).toThrow();
+   expect(() => allow.setOnFailure(aNegative1)).toThrow();
+   expect(() => allow.setOnFailure(aNegativePi)).toThrow();
+   expect(() => allow.setOnFailure(anEmptyArray)).toThrow();
+   expect(() => allow.setOnFailure(anEmptyObject)).toThrow();
+   expect(() => allow.setOnFailure(anEmptyString)).toThrow();
+   expect(() => allow.setOnFailure(aNull)).toThrow();
+   expect(() => allow.setOnFailure(aNumber0)).toThrow();
+   expect(() => allow.setOnFailure(aNumber1)).toThrow();
+   expect(() => allow.setOnFailure(aNumber1WithDecimals)).toThrow();
+   expect(() => allow.setOnFailure(anUndefined)).toThrow();
+   expect(() => allow.setOnFailure(aPi)).toThrow();
+   expect(() => allow.setOnFailure(aPopulatedObject)).toThrow();
+   expect(() => allow.setOnFailure(aTrue)).toThrow();
+   expect(() => allow.setOnFailure(aTrueString)).toThrow();
 });

@@ -53,8 +53,9 @@ const doSomething = theCallback => {
       blank, like:
       () => {}
       But it must be a function of some kind.
-      In JavaScript, a class will also show typeof 'function'.  However, this
-      check will fail if a class is passed into theCallback.
+      Please note that, in JavaScript, a class is virtually indistinguishable
+      from a function (since "class" is just syntactic sugar). For this reason,
+      a class will also pass this check.
     */
 }
 ```
@@ -592,6 +593,8 @@ const doSomething = theDay => {
     */
 }
 ```
+
+The first value passed into `oneOf()` must be a primitive. It cannot be an object, an array, or a function.
 
 ### .setAllowNull()
 
