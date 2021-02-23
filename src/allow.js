@@ -1,3 +1,5 @@
+import { isARegularObject } from '@toolz/is-a-regular-object';
+
 const Allow = () => {
    let allowNull = false;
    let failureBehavior = 'throw';
@@ -91,9 +93,9 @@ const Allow = () => {
          else {
             const suppliedValue = suppliedObject[modelKey];
             const modelValue = modelObject[modelKey];
-            const isSuppliedValueAnObject = isAnObject(suppliedValue);
+            const isSuppliedValueAnObject = isARegularObject(suppliedValue);
             const isSuppliedValueAnArray = Array.isArray(suppliedValue);
-            const isModelValueAnObject = isAnObject(modelValue);
+            const isModelValueAnObject = isARegularObject(modelValue);
             const isModelValueAnArray = Array.isArray(modelValue);
             if (isSuppliedValueAnObject !== isModelValueAnObject || isSuppliedValueAnArray !== isModelValueAnArray)
                fail(suppliedObject, 'does not match the model object');
@@ -115,7 +117,7 @@ const Allow = () => {
    
    const anObject = (value, minNumberOfKeys = 0, maxNumberOfKeys = Number.MAX_SAFE_INTEGER) => {
       anInteger(minNumberOfKeys, is.not.negative).anInteger(maxNumberOfKeys, is.not.negative);
-      if (!isAnObject(value))
+      if (!isARegularObject(value))
          return fail(value, 'is not an object');
       checkLength(Object.keys(value), minNumberOfKeys, maxNumberOfKeys);
       return allow;
@@ -176,12 +178,10 @@ const Allow = () => {
    
    const is = {not: {negative: 0}};
    
-   const isAnObject = value => typeof value === 'object' && !Array.isArray(value) && value !== null;
-   
    const oneOf = (value, allowedValues) => {
       if (allowNull && value === null)
          return allow;
-      if (isAnObject(value) || Array.isArray(value) || typeof value === 'function') {
+      if (isARegularObject(value) || Array.isArray(value) || typeof value === 'function') {
          fail(value, 'cannot be an object, array, or function');
          return allow;
       }
@@ -214,6 +214,7 @@ const Allow = () => {
       aFunction(onFailureFunction);
       onFailure = onFailureFunction;
    };
+   
    
    return {
       aBoolean,
