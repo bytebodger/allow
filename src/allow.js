@@ -1,13 +1,14 @@
 import { isARegularObject } from '@toolz/is-a-regular-object';
 
+export const failureBehavior = {
+   IGNORE: 'ignore',
+   THROW: 'throw',
+   WARN: 'warn',
+};
+
 const Allow = () => {
    let allowNull = false;
-   let failureBehavior = 'throw';
-   const failureBehaviorOptions = {
-      ignore: 'ignore',
-      throw: 'throw',
-      warn: 'warn',
-   };
+   let currentFailureBehavior = failureBehavior.THROW;
    let onFailure = () => {
       //
    };
@@ -164,9 +165,9 @@ const Allow = () => {
       if (allowNull && value === null)
          return allow;
       onFailure(value, message);
-      if (failureBehavior === 'ignore')
+      if (currentFailureBehavior === 'ignore')
          return allow;
-      if (failureBehavior === 'warn') {
+      if (currentFailureBehavior === 'warn') {
          console.warn(value);
          console.warn(`[${value.toString()}] ${message}`);
          return allow;
@@ -177,7 +178,7 @@ const Allow = () => {
    
    const getAllowNull = () => allowNull;
    
-   const getFailureBehavior = () => failureBehavior;
+   const getFailureBehavior = () => currentFailureBehavior;
    
    const getOnFailure = () => onFailure;
    
@@ -211,8 +212,8 @@ const Allow = () => {
    };
    
    const setFailureBehavior = behavior => {
-      oneOf(behavior, failureBehaviorOptions);
-      failureBehavior = behavior;
+      oneOf(behavior, failureBehavior);
+      currentFailureBehavior = behavior;
    };
    
    const setOnFailure = onFailureFunction => {
@@ -239,7 +240,6 @@ const Allow = () => {
       checkLength,
       checkRange,
       fail,
-      failureBehaviorOptions,
       getAllowNull,
       getFailureBehavior,
       getOnFailure,
