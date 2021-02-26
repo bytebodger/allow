@@ -1,13 +1,12 @@
 import { isARegularObject } from '@toolz/is-a-regular-object';
 
-export const failureBehavior = {
-   IGNORE: 'ignore',
-   THROW: 'throw',
-   WARN: 'warn',
-};
-
 const Allow = () => {
    let allowNull = false;
+   const failureBehavior = {
+      IGNORE: 'ignore',
+      THROW: 'throw',
+      WARN: 'warn',
+   };
    let currentFailureBehavior = failureBehavior.THROW;
    let onFailure = () => {
       //
@@ -240,6 +239,7 @@ const Allow = () => {
       checkLength,
       checkRange,
       fail,
+      failureBehavior,
       getAllowNull,
       getFailureBehavior,
       getOnFailure,
