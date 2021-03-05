@@ -1,13 +1,14 @@
 import { isARegularObject } from '@toolz/is-a-regular-object';
+import { local } from '@toolz/local-storage';
 
 const Allow = () => {
-   let allowNull = false;
+   let allowNull = local.getItem('allow.allowNull', false);
    const failureBehavior = {
       IGNORE: 'ignore',
       THROW: 'throw',
       WARN: 'warn',
    };
-   let currentFailureBehavior = failureBehavior.THROW;
+   let currentFailureBehavior = local.getItem('allow.failureBehavior', failureBehavior.THROW);
    let onFailure = () => {
       //
    };
@@ -207,12 +208,12 @@ const Allow = () => {
    
    const setAllowNull = newAllowNull => {
       aBoolean(newAllowNull);
-      allowNull = newAllowNull;
+      allowNull = local.setItem('allow.allowNull', newAllowNull);
    };
    
    const setFailureBehavior = behavior => {
       oneOf(behavior, failureBehavior);
-      currentFailureBehavior = behavior;
+      currentFailureBehavior = local.setItem('allow.failureBehavior', behavior);
    };
    
    const setOnFailure = onFailureFunction => {

@@ -1,6 +1,6 @@
 {
   "name": "@toolz/allow",
-  "version": "1.0.8",
+  "version": "1.1.0",
   "description": "Provides validation of data types",
   "keywords": [
     "data type",
@@ -55,6 +55,7 @@
     "last 1 ie version"
   ],
   "dependencies": {
-    "@toolz/is-a-regular-object": "^1.0.1"
+    "@toolz/is-a-regular-object": "^1.0.1",
+    "@toolz/local-storage": "^1.0.2"
   }
 }
