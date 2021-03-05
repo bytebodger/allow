@@ -617,7 +617,7 @@ allow.anArray(thisIsNull); // this does NOT throw an Error
 ### .setFailureBehavior()
 
 ```javascript
-allow.setFailureBehavior('warn');
+allow.setFailureBehavior(allow.failureBehavior.WARN);
 /*
    setFailureBehavior() requires one of the following three values:
       'throw'
@@ -639,7 +639,7 @@ const myCustomErrorHandler = (value, message) => {
    // do the custom error handling...
 }
 
-allow.setFailureBehavior('ignore');
+allow.setFailureBehavior(allow.failureBehavior.IGNORE);
 allow.setOnFailure(myCustomErrorHandler);
 /*
    The onFailure handler is called before any warning is displayed and before
