@@ -1,5 +1,5 @@
 import { isARegularObject } from '@toolz/is-a-regular-object';
-import { localStorageIsAvailable } from '@toolz/local-storage-is-available';
+import { sessionStorageIsAvailable } from '@toolz/session-storage-is-available';
 
 const Allow = () => {
    let allowNull;
@@ -9,10 +9,10 @@ const Allow = () => {
       THROW: 'throw',
       WARN: 'warn',
    };
-   if (localStorageIsAvailable()) {
-      const savedAllowNull = localStorage.getItem('allow.allowNull');
+   if (sessionStorageIsAvailable()) {
+      const savedAllowNull = sessionStorage.getItem('allow.allowNull');
       allowNull = savedAllowNull === 'true';
-      currentFailureBehavior = localStorage.getItem('allow.failureBehavior') || failureBehavior.THROW;
+      currentFailureBehavior = sessionStorage.getItem('allow.failureBehavior') || failureBehavior.THROW;
    } else {
       allowNull = false;
       currentFailureBehavior = failureBehavior.THROW;
@@ -216,15 +216,15 @@ const Allow = () => {
    
    const setAllowNull = newAllowNull => {
       aBoolean(newAllowNull);
-      if (localStorageIsAvailable())
-         localStorage.setItem('allow.allowNull', newAllowNull.toString());
+      if (sessionStorageIsAvailable())
+         sessionStorage.setItem('allow.allowNull', newAllowNull.toString());
       allowNull = newAllowNull;
    };
    
    const setFailureBehavior = behavior => {
       oneOf(behavior, failureBehavior);
-      if (localStorageIsAvailable())
-         localStorage.setItem('allow.failureBehavior', behavior);
+      if (sessionStorageIsAvailable())
+         sessionStorage.setItem('allow.failureBehavior', behavior);
       currentFailureBehavior = behavior;
    };
    

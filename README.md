@@ -609,7 +609,7 @@ allow.anArray(thisIsNull); // this does NOT throw an Error
    setAllowNull() requires a Boolean as its only argument. By default, the
    values checked in by the allow methods are not nullable. But this behavior
    can be toggled with setAllowNull(). 
-   If localStorage is available, the allowNull value will be set there.
+   If sessionStorage is available, the allowNull value will be set there.
    This allows the setting to be saved once in the lifecycle of the app.
  */
 ```
@@ -627,7 +627,7 @@ allow.setFailureBehavior(allow.failureBehavior.WARN);
    execution.  
    'warn' will spawn warnings to be displayed in the console.
    'ignore' will turn off all warnings and cease the throwing of all Errors.
-   If localStorage is available, the failureBehavior value will be set there.
+   If sessionStorage is available, the failureBehavior value will be set there.
    This allows the setting to be saved once in the lifecycle of the app.
  */
 ```
