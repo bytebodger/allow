@@ -1,15 +1,5 @@
 import { isARegularObject } from '@toolz/is-a-regular-object';
-
-const localStorageIsSupported = () => {
-   try {
-      const testKey = '__some_random_key_you_are_not_going_to_use__';
-      localStorage.setItem(testKey, testKey);
-      localStorage.removeItem(testKey);
-      return true;
-   } catch (e) {
-      return false;
-   }
-};
+import { localStorageIsAvailable } from '@toolz/local-storage-is-available';
 
 const Allow = () => {
    let allowNull;
@@ -19,7 +9,7 @@ const Allow = () => {
       THROW: 'throw',
       WARN: 'warn',
    };
-   if (localStorageIsSupported()) {
+   if (localStorageIsAvailable()) {
       const savedAllowNull = localStorage.getItem('allow.allowNull');
       allowNull = savedAllowNull === 'true';
       currentFailureBehavior = localStorage.getItem('allow.failureBehavior') || failureBehavior.THROW;
@@ -226,14 +216,14 @@ const Allow = () => {
    
    const setAllowNull = newAllowNull => {
       aBoolean(newAllowNull);
-      if (localStorageIsSupported())
+      if (localStorageIsAvailable())
          localStorage.setItem('allow.allowNull', newAllowNull.toString());
       allowNull = newAllowNull;
    };
    
    const setFailureBehavior = behavior => {
       oneOf(behavior, failureBehavior);
-      if (localStorageIsSupported())
+      if (localStorageIsAvailable())
          localStorage.setItem('allow.failureBehavior', behavior);
       currentFailureBehavior = behavior;
    };
