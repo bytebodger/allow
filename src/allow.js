@@ -233,7 +233,6 @@ const Allow = () => {
       onFailure = onFailureFunction;
    };
    
-   
    return {
       aBoolean,
       aFunction,
